@@ -1,2 +1,2 @@
 # TaleOfDelamar
-the new game. command line as always
+the new game. command line as always.
