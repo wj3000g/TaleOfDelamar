@@ -10,6 +10,15 @@ import strings
 # NORTH/SOUTH/EAST/WEST: Nom des zones correspondantes à ces directions,
 # }, ...
 
+WORLD_ITEMS = {
+    "BLACKBOX": {
+        "EDIBLE": False,
+        "TAKEABLE": True
+        #TODO: "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1
+    }
+}
+
+
 
 WORLD_ROOMS = {
     "CRASHSITE": {
@@ -35,7 +44,7 @@ WORLD_ROOMS = {
     },
 
     "DUNES1": {
-        "NAME": ""
+        "NAME": "Dunes (Est)",
         "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES1,
         "NEEDITEM": None,
         "HASITEM": None,
@@ -46,7 +55,8 @@ WORLD_ROOMS = {
     },
 
     "MINING2" : {
-        "DIALOGENTRY": strings.PLAYER_DIALOG_MINING2,
+        "NAME": "",
+        "DIALOGENTRY": None, #TODO
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "BLACKBOX1",
@@ -56,7 +66,14 @@ WORLD_ROOMS = {
     },
 
     "BLACKBOX1": {
-        "DIALOGENTRY":
+        "NAME": "Emplacement de la boîte noire",
+        #TODO: "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1,
+        "NEEDITEM": None,
+        #TODO: "HASITEM": WORLD_ITEMS.BLACKBOX,
+        "NORTH": None,
+        "SOUTH": "MINING2",
+        "EAST": None,
+        "WEST": None
     }
 
 }
