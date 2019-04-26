@@ -34,7 +34,7 @@ WORLD_ITEMS = {
         "TAKEABLE": True,
         "NEEDITEM": None,
         #TODO "DIALOGENTRY"
-    }
+    },
 
     "CROWBAR": {
         "NAME": "Pied-de-biche",
