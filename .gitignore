@@ -2,3 +2,4 @@ BUILDLOG.log
 __pycache__
 *.zip
 .vscode/*
+.vscode/settings.json
