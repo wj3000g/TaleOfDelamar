@@ -1,27 +1,46 @@
 import strings
 
 # Zone creation model :
-
 # "ZONE_NAME_IN_CAPS": {
-# "NAME": "Name of the zone",
-# "DIALOGENTRY": strings.DIALOG_ENTRY_FOR_THE_ZONE,
-# "NEEDITEM": bool, Need an item to go there,
-# "HASITEM": There is an item to pickup in this zone,
-# "NORTH"/"SOUTH"/"EAST"/"WEST": "NAME_OF_THE_ZONES_THERE",
+    # "NAME": "Name of the zone",
+    # "DIALOGENTRY": strings.DIALOG_ENTRY_FOR_THE_ZONE,
+    # "NEEDITEM": bool, does the player need an item to go there, ?
+    # "HASITEM": There is an item to pickup in this zone, ?
+    # "NORTH"/"SOUTH"/"EAST"/"WEST": "NAME_OF_THE_ZONES_THERE",
 # }, ...
+
+# Item creation model :
+# "ITEM_NAME_IN_CAPS": {
+    # "NAME": "Name of the item",
+    # "EDIBLE": bool, can the item be eaten ?
+    # "TAKEABLE": bool, can the item be stored in the player's inventory ?
+    # "NEEDITEM": "ITEM_NAME" or None, does the item requires another to be used ?
+    # "DIALOGENTRY": string.DIALOG_ENTRY_FOR_THE_ITEM
+# }, ...
+
 
 WORLD_ITEMS = {
     "BLACKBOX": {
         "NAME": "Boîte noire",
         "EDIBLE": False,
         "TAKEABLE": True,
+        "NEEDITEM": "TAPE_PLAYER",
         #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1
     },
+
+    "TAPE_PLAYER": {
+        "NAME": "Lecteur de cassettes",
+        "EDIBLE": False,
+        "TAKEABLE": True,
+        "NEEDITEM": None,
+        #TODO "DIALOGENTRY"
+    }
 
     "CROWBAR": {
         "NAME": "Pied-de-biche",
         "EDIBLE": False,
         "TAKEABLE": True,
+        "NEEDITEM": None,
         #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CROWBAR
     },
 
@@ -29,6 +48,7 @@ WORLD_ITEMS = {
         "NAME": "Carte d'accès (Niveau 1)",
         "EDIBLE": False,
         "TAKEABLE": True,
+        "NEEDITEM": None,
         #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_PASSKEY_LEVEL1
     }
 }
@@ -144,6 +164,83 @@ WORLD_ROOMS = {
         "SOUTH": "DUNES3",
         "EAST": None,
         "WEST": None
+    },
+
+    "CITY1_CENTER": {
+        "NAME": "Centre ville (Shubin)",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_CENTER,
+        "NEEDITEM": None,
+        "HASITEM": None,
+        "NORTH": "CITY1_PATH1",
+        "SOUTH": "CITY1_GATES",
+        "EAST": "CITY1_HABS",
+        "WEST": "CITY1_ATLAS_STORE",
+    },
+
+    "CITY1_HABS": {
+        "NAME": "Quartier d'habitations (Shubin)",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_HABS,
+        "NEEDITEM": None,
+        "HASITEM": None,
+        "NORTH": "CITY1_OFFICE",
+        "SOUTH": None,
+        "EAST": None,
+        "WEST": "CITY1_CENTER"
+    },
+    
+    "CITY1_OFFICE": {
+        "NAME": "Bureau d'administration (Shubin)",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_OFFICE,
+        "NEEDITEM": None,
+        "HASITEM": None,
+        "NORTH": "CITY1_EXIT",
+        "SOUTH": "CITY1_HABS",
+        "EAST": None,
+        "WEST": "CITY1_PATH1"
+    },
+
+    "CITY1_PATH1": {
+        "NAME": "Intersection nord (Shubin)",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_PATH1,
+        "NEEDITEM": None,
+        "HASITEM": None,
+        "NORTH": "CITY1_EXIT",
+        "SOUTH": "CITY1_CENTER",
+        "EAST": "CITY1_OFFICE",
+        "WEST": "CITY1_TOOLSMITH"
+    },
+
+    "CITY1_TOOLSMITH": {
+        "NAME": "Atelier d'outillage (Shubin)",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_TOOLSMITH,
+        "NEEDITEM": None,
+        "HASITEM": None,
+        "NORTH": "CITY1_EXIT",
+        "SOUTH": "CITY1_ATLAS_STORE",
+        "EAST": "CITY1_PATH1",
+        "WEST": None
+    },
+
+    "CITY1_ATLAS_STORE": {
+        "NAME": "Magasin 'Atlas Store'",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_ATLASSTORE,
+        "NEEDITEM": None,
+        "HASITEM": WORLD_ITEMS["TAPE_PLAYER"],
+        "NORTH": "CITY1_TOOLSMITH",
+        "SOUTH": None,
+        "EAST": "CITY1_CENTER",
+        "WEST": None
+    },
+
+    "CITY1_EXIT": {
+        "NAME": "Sortie de la ville (Shubin)",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_EXIT,
+        "NEEDITEM": None,
+        "HASITEM": None,
+        #TODO "NORTH": ????,
+        "SOUTH": "CITY1_PATH1",
+        "EAST": "CITY1_OFFICE",
+        "WEST": "CITY1_TOOLSMITH"
     }
 
 }
