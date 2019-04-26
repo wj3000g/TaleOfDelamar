@@ -1,13 +1,13 @@
 import strings
 
-# Modèle de création de zones :
+# Zone creation model :
 
-# "NOM_DE_ZONE": {
-# DESC: Description de la zone,
-# DIALOGENTRY: Entrée dialogue si look() (strings.DIALOG_ENTRY),
-# NEEDITEM: Item requis pour accéder à la zone ,
-# HASITEM: Item disponible dans la zone (affiché si look()),
-# NORTH/SOUTH/EAST/WEST: Nom des zones correspondantes à ces directions,
+# "ZONE_NAME_IN_CAPS": {
+# "NAME": "Name of the zone",
+# "DIALOGENTRY": strings.DIALOG_ENTRY_FOR_THE_ZONE,
+# "NEEDITEM": bool, Need an item to go there,
+# "HASITEM": There is an item to pickup in this zone,
+# "NORTH"/"SOUTH"/"EAST"/"WEST": "NAME_OF_THE_ZONES_THERE",
 # }, ...
 
 WORLD_ITEMS = {
@@ -15,7 +15,21 @@ WORLD_ITEMS = {
         "NAME": "Boîte noire",
         "EDIBLE": False,
         "TAKEABLE": True,
-        "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1
+    },
+
+    "CROWBAR": {
+        "NAME": "Pied-de-biche",
+        "EDIBLE": False,
+        "TAKEABLE": True,
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CROWBAR
+    },
+
+    "PASSKEY_LEVEL1": {
+        "NAME": "Carte d'accès (Niveau 1)",
+        "EDIBLE": False,
+        "TAKEABLE": True,
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_PASSKEY_LEVEL1
     }
 }
 
@@ -57,7 +71,7 @@ WORLD_ROOMS = {
 
     "MINING2": {
         "NAME": "Site de minage 'Shubin'",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_MINING2,
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_MINING2,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "BLACKBOX1",
@@ -68,7 +82,7 @@ WORLD_ROOMS = {
 
     "BLACKBOX1": {
         "NAME": "Emplacement de la boîte noire",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_SITE_BLACKBOX1,
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_SITE_BLACKBOX1,
         "NEEDITEM": None,
         "HASITEM": WORLD_ITEMS["BLACKBOX"],
         "NORTH": None,
@@ -78,7 +92,58 @@ WORLD_ROOMS = {
     },
 
     "DUNES2": {
-        "NAME":
+        "NAME": "Dunes (Ouest)",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES2,
+        "NEEDITEM": None,
+        "HASITEM": None,
+        "NORTH": "BASE1",
+        "SOUTH": None,
+        "EAST": "CRASHSITE",
+        "WEST": "CRASHEDSHIP"
+    },
+
+    "CRASHEDSHIP": {
+        "NAME": "Vaisseau écrasé",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CRASHEDSHIP,
+        "NEEDITEM": WORLD_ITEMS["CROWBAR"],
+        "HASITEM": WORLD_ITEMS["PASSKEY_LEVEL1"],
+        "NORTH": "MINING1",
+        "SOUTH": None,
+        "EAST": "DUNES2",
+        "WEST": None
+    },
+
+    "MINING1": {
+        "NAME": "Site de minage 'Kudre'",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_MINING1,
+        "NEEDITEM": None,
+        "HASITEM": None,
+        "NORTH": None,
+        "SOUTH": "CRASHEDSHIP",
+        "EAST": "DUNES3",
+        "WEST": None
+    },
+
+    "DUNES3": {
+        "NAME": "Dunes (Nord)",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES3,
+        "NEEDITEM": None,
+        "HASITEM": None,
+        "NORTH": "CITY1_GATES",
+        "SOUTH": "BASE1",
+        "EAST": None,
+        "WEST": "MINING1"
+    },
+
+    "CITY1_GATES": {
+        "NAME": "Portes d'accès à Shubin",
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_GATES,
+        "NEEDITEM": WORLD_ITEMS["PASSKEY_LEVEL1"],
+        "HASITEM": None,
+        "NORTH": "CITY1_CENTER",
+        "SOUTH": "DUNES3",
+        "EAST": None,
+        "WEST": None
     }
 
 }
