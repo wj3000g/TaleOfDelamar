@@ -33,7 +33,7 @@ WORLD_ITEMS = {
         "EDIBLE": False,
         "TAKEABLE": True,
         "NEEDITEM": None,
-        #TODO "DIALOGENTRY"
+        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_TAPE_PLAYER
     },
 
     "CROWBAR": {
