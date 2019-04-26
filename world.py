@@ -12,9 +12,10 @@ import strings
 
 WORLD_ITEMS = {
     "BLACKBOX": {
+        "NAME": "Boîte noire",
         "EDIBLE": False,
-        "TAKEABLE": True
-        #TODO: "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1
+        "TAKEABLE": True,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1
     }
 }
 
@@ -54,9 +55,9 @@ WORLD_ROOMS = {
         "WEST": "CRASHSITE",
     },
 
-    "MINING2" : {
-        "NAME": "",
-        "DIALOGENTRY": None, #TODO
+    "MINING2": {
+        "NAME": "Site de minage 'Shubin'",
+        "DIALOGENTRY": strings.PLAYER_DIALOG_MINING2,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "BLACKBOX1",
@@ -67,13 +68,17 @@ WORLD_ROOMS = {
 
     "BLACKBOX1": {
         "NAME": "Emplacement de la boîte noire",
-        #TODO: "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_SITE_BLACKBOX1,
         "NEEDITEM": None,
-        #TODO: "HASITEM": WORLD_ITEMS.BLACKBOX,
+        "HASITEM": WORLD_ITEMS["BLACKBOX"],
         "NORTH": None,
         "SOUTH": "MINING2",
         "EAST": None,
         "WEST": None
+    },
+
+    "DUNES2": {
+        "NAME":
     }
 
 }
