@@ -1,3 +1,5 @@
+# TODO Create two version of the game at build, it creates one FR and EN
+
 print("Starting: Loading modules...")
 import os
 import sys
