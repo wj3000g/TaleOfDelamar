@@ -91,7 +91,7 @@ WORLD_ROOMS = {
 
     "MINING2": {
         "NAME": "Site de minage 'Shubin'",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_MINING2,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_MINING2,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "BLACKBOX1",
@@ -102,7 +102,7 @@ WORLD_ROOMS = {
 
     "BLACKBOX1": {
         "NAME": "Emplacement de la boîte noire",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_SITE_BLACKBOX1,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_SITE_BLACKBOX1,
         "NEEDITEM": None,
         "HASITEM": WORLD_ITEMS["BLACKBOX"],
         "NORTH": None,
@@ -113,7 +113,7 @@ WORLD_ROOMS = {
 
     "DUNES2": {
         "NAME": "Dunes (Ouest)",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES2,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES2,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "BASE1",
@@ -124,7 +124,7 @@ WORLD_ROOMS = {
 
     "CRASHEDSHIP": {
         "NAME": "Vaisseau écrasé",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CRASHEDSHIP,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CRASHEDSHIP,
         "NEEDITEM": WORLD_ITEMS["CROWBAR"],
         "HASITEM": WORLD_ITEMS["PASSKEY_LEVEL1"],
         "NORTH": "MINING1",
@@ -135,7 +135,7 @@ WORLD_ROOMS = {
 
     "MINING1": {
         "NAME": "Site de minage 'Kudre'",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_MINING1,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_MINING1,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": None,
@@ -146,7 +146,7 @@ WORLD_ROOMS = {
 
     "DUNES3": {
         "NAME": "Dunes (Nord)",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES3,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES3,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_GATES",
@@ -157,7 +157,7 @@ WORLD_ROOMS = {
 
     "CITY1_GATES": {
         "NAME": "Portes d'accès à Shubin",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_GATES,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_GATES,
         "NEEDITEM": WORLD_ITEMS["PASSKEY_LEVEL1"],
         "HASITEM": None,
         "NORTH": "CITY1_CENTER",
@@ -168,7 +168,7 @@ WORLD_ROOMS = {
 
     "CITY1_CENTER": {
         "NAME": "Centre ville (Shubin)",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_CENTER,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_CENTER,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_PATH1",
@@ -179,7 +179,7 @@ WORLD_ROOMS = {
 
     "CITY1_HABS": {
         "NAME": "Quartier d'habitations (Shubin)",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_HABS,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_HABS,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_OFFICE",
@@ -190,7 +190,7 @@ WORLD_ROOMS = {
     
     "CITY1_OFFICE": {
         "NAME": "Bureau d'administration (Shubin)",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_OFFICE,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_OFFICE,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_EXIT",
@@ -201,7 +201,7 @@ WORLD_ROOMS = {
 
     "CITY1_PATH1": {
         "NAME": "Intersection nord (Shubin)",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_PATH1,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_PATH1,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_EXIT",
@@ -212,7 +212,7 @@ WORLD_ROOMS = {
 
     "CITY1_TOOLSMITH": {
         "NAME": "Atelier d'outillage (Shubin)",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_TOOLSMITH,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_TOOLSMITH,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_EXIT",
@@ -223,7 +223,7 @@ WORLD_ROOMS = {
 
     "CITY1_ATLAS_STORE": {
         "NAME": "Magasin 'Atlas Store'",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_ATLASSTORE,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_ATLASSTORE,
         "NEEDITEM": None,
         "HASITEM": WORLD_ITEMS["TAPE_PLAYER"],
         "NORTH": "CITY1_TOOLSMITH",
@@ -234,10 +234,10 @@ WORLD_ROOMS = {
 
     "CITY1_EXIT": {
         "NAME": "Sortie de la ville (Shubin)",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_EXIT,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_EXIT,
         "NEEDITEM": None,
         "HASITEM": None,
-        #TODO "NORTH": ????,
+        "NORTH": None,
         "SOUTH": "CITY1_PATH1",
         "EAST": "CITY1_OFFICE",
         "WEST": "CITY1_TOOLSMITH"
