@@ -3,3 +3,4 @@ __pycache__
 *.zip
 .vscode/*
 .vscode/settings.json
+SAVE.ini

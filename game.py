@@ -6,6 +6,7 @@ import configparser
 import os
 import sys
 import time
+import ast
 init()
 
 config = configparser.ConfigParser()
@@ -20,6 +21,8 @@ def clear_screen():
 	else:
 		os.system("clear")
 
+def debug(text):
+	cprint("DEBUG: " + str(text), "yellow")
 
 def GAME_INIT():
 	print("loading...")
@@ -32,7 +35,6 @@ def GAME_INIT():
 		# Thus this feature is currently disabled on Linux.
 		pass
 
-		
 
 	while True: # Title screen
 		clear_screen()
@@ -61,8 +63,10 @@ def GAME_INIT():
 			
 			if user_verify == "start":
 				config["GAMEDATA"] = {
-				"CURRENTZONE": "CRASHEDSHIP", # The starting point of the game
-				"INVENTORY": ["IDENTITYCARD"]
+				"CURRENTZONE": "CRASHSITE", # The starting point of the game
+				"INVENTORY": [
+					"IDENTITYCARD"
+					]
 				}
 
 				save_game()
@@ -75,11 +79,13 @@ def GAME_INIT():
 		elif user_choice == "2" and game_save_exists == True:
 			try:
 				config.read(strings.META_SAVEFILE)
+				return
 		
 			except Exception as error: # The save file is unreadable or corrupted
 				cprint("ERROR! The save file '"+strings.META_SAVEFILE+"' is unreadable or corrupted !", "red")
 				cprint("Try to restore it to an earlier version or or start a new game,", "red")
 				cprint("DEBUG INFOS: " + str(error), "yellow")
+				input()
 				continue
 		
 		elif user_choice == "99":
@@ -113,7 +119,7 @@ def move_to_location(cardinal_point):
 
 	try:
 
-		old_room = config["DATA"]["CURRENTZONE"]
+		old_room = config["GAMEDATA"]["CURRENTZONE"]
 		new_room = world.WORLD_ROOMS[old_room][cardinal_point]
 		
 		if new_room == None:
@@ -123,7 +129,7 @@ def move_to_location(cardinal_point):
 		new_room_name = world.WORLD_ROOMS[new_room]["NAME"]
 			
 		if world.WORLD_ROOMS[new_room]["NEEDITEM"] != None: # If an item is required to go there...
-			current_inventory = config["DATA"]["INVENTORY"]
+			current_inventory = config["GAMEDATA"]["INVENTORY"]
 			needed_item_id = world.WORLD_ITEMS[world.WORLD_ROOMS[new_room]["NEEDITEM"]]
 			needed_item_name = world.WORLD_ITEMS[world.WORLD_ROOMS[new_room]["NEEDITEM"]]["NAME"]
 			
@@ -137,7 +143,7 @@ def move_to_location(cardinal_point):
 					if item_id == needed_item_id: # If the player have the needed item in his inventory...
 						tprint("You entered by using " + needed_item_name)
 						tprint("you are now at : " + new_room_name)
-						config["DATA"]["CURRENTZONE"] = new_room
+						config["GAMEDATA"]["CURRENTZONE"] = new_room
 						return # Exits the function
 					
 				# If we arrive here, this means that the player doesn't have the needed item.
@@ -146,7 +152,7 @@ def move_to_location(cardinal_point):
 				return
 			
 		else: # The room doesn't requires an item...
-			config["DATA"]["CURRENTZONE"] = new_room
+			config["GAMEDATA"]["CURRENTZONE"] = new_room
 			tprint("You are now at : " + new_room_name)
 			return
 	
@@ -162,21 +168,18 @@ def tprint(text, sleep_frame=strings.META_WAITFRAME): # TODO support multiparts 
 		time.sleep(sleep_frame)
 	
 	print("") # Prints a new line
-	
-
-
 
 
 def look():
-	location_id = config["DATA"]["CURRENTZONE"]
+	location_id = config["GAMEDATA"]["CURRENTZONE"]
 	location_name = world.WORLD_ROOMS[location_id]["NAME"]
 	item_in_zone_id = world.WORLD_ROOMS[location_id]["HASITEM"]
-	current_inventory = config["DATA"]["INVENTORY"]
+	current_inventory = config["GAMEDATA"]["INVENTORY"]
 
-	north_id = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["NORTH"]]
-	south_id = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["SOUTH"]]
-	east_id = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["EAST"]]
-	west_id = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["WEST"]]
+	north_id = world.WORLD_ROOMS[location_id]["NORTH"]
+	south_id = world.WORLD_ROOMS[location_id]["SOUTH"]
+	east_id = world.WORLD_ROOMS[location_id]["EAST"]
+	west_id = world.WORLD_ROOMS[location_id]["WEST"]
 
 	tprint("You are at " + location_name)
 	tprint("-----------" + "-"*len(location_name)) # Automatically adjusts the size of the separator
@@ -204,27 +207,39 @@ def look():
 	else:
 		tprint("West: " + world.WORLD_ROOMS[west_id]["NAME"])
 	
-	if item_in_zone_id != None: # If there is an item in the current zone
+	tprint("-----------" + "-"*len(location_name))
+
+
+	if item_in_zone_id == None:
+		return
+		
+	else: # If there is an item in the current zone
 		for item_id in current_inventory:
 			if item_id == item_in_zone_id: # If the player already have the item...		
 				return # Exits the function
 					
-			# The player doesn't have the item in the zone yet. We pick it up.
-			tprint("You picked up an item !")
-			tprint("You got '" + world.WORLD_ITEMS[item_in_zone_id]["NAME"] + "'")
-
-			config["DATA"]["INVENTORY"].append(item_in_zone_id) # Adds the item to the inventory
-			return
+		# The player doesn't have the item in the zone yet. We pick it up.
+		tprint("You picked up an item !")
+		
+		new_item_name = item_in_zone_id["NAME"]
+		print("You got '" + new_item_name + "'")
+		config.set("GAMEDATA", "INVENTORY", item_in_zone_id["ID"])
+		# Adds the item to the inventory
+		return
 
 
 def whereami():
-	current_location_name = world.WORLD_ROOMS[config["DATA"]["CURRENTZONE"]]["NAME"]
+	current_location_name = world.WORLD_ROOMS[config["GAMEDATA"]["CURRENTZONE"]]["NAME"]
 	tprint("You are at : " + current_location_name)
 
 
 def print_inventory():
-	current_inventory = config["DATA"]["INVENTORY"]
 	tprint("Inventory content : ")
+	# old method (broken) : current_inventory = json.loads(config["GAMEDATA"]["INVENTORY"])
+	# old method (broken) : current_inventory = json.loads(config.get("GAMEDATA", "INVENTORY"))
+
+	current_inventory = ast.literal_eval(config.get("GAMEDATA", "INVENTORY"))
+
 	for item_id in current_inventory:
 		item_name = world.WORLD_ITEMS[item_id]["NAME"]
 		tprint(" - " + item_name)
@@ -249,19 +264,19 @@ def game_loop():
 			whereami()
 			continue
 		
-		elif user_choice == "north" or "n":
+		elif user_choice == "north" or user_choice == "n":
 			move_to_location("NORTH")
 			continue
 		
-		elif user_choice == "south" or "s":
+		elif user_choice == "south" or user_choice == "s":
 			move_to_location("SOUTH")
 			continue
 		
-		elif user_choice == "east" or "e":
+		elif user_choice == "east" or user_choice == "e":
 			move_to_location("EAST")
 			continue
 		
-		elif user_choice == "west" or "w":
+		elif user_choice == "west" or user_choice == "w":
 			move_to_location("WEST")
 			continue
 

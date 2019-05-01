@@ -1,10 +1,10 @@
 
 META_GAMENAME = "Tale Of Delamar"
-META_GAMEVERSION = "0.1.0"
+META_GAMEVERSION = "0.1.1"
 META_GAMECREATOR = "Sandai"
-META_GAMETITLE = META_GAMENAME + " | version " + META_GAMEVERSION
+META_GAMETITLE = META_GAMENAME + " - version " + META_GAMEVERSION
 META_SAVEFILE = "SAVE.ini"
-META_WAITFRAME = 0.02
+META_WAITFRAME = 0.03
 _HELP_MESSAGE = META_GAMENAME + """ -- Help
 Available commands : help quit whereami north/n south/s east/e west/w look inventory"""
 _PLACEHOLDER = "__DEBUG_PLACEHOLDER"
