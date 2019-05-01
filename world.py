@@ -22,34 +22,32 @@ import strings
 WORLD_ITEMS = {
     "BLACKBOX": {
         "NAME": "Boîte noire",
-        "EDIBLE": False,
-        "TAKEABLE": True,
         "NEEDITEM": "TAPE_PLAYER",
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1
+        "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1
+    },
+
+    "IDENTITYCARD": {
+        "NAME": "Carte d'identité",
+        "NEEDITEM": None,
+        "DIALOGENTRY": strings.PLAYER_DIALOG_IDENTITYCARD
     },
 
     "TAPE_PLAYER": {
         "NAME": "Lecteur de cassettes",
-        "EDIBLE": False,
-        "TAKEABLE": True,
         "NEEDITEM": None,
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_TAPE_PLAYER
+        "DIALOGENTRY": strings.PLAYER_DIALOG_TAPE_PLAYER
     },
 
     "CROWBAR": {
         "NAME": "Pied-de-biche",
-        "EDIBLE": False,
-        "TAKEABLE": True,
         "NEEDITEM": None,
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_CROWBAR
+        "DIALOGENTRY": strings.PLAYER_DIALOG_CROWBAR
     },
 
     "PASSKEY_LEVEL1": {
         "NAME": "Carte d'accès (Niveau 1)",
-        "EDIBLE": False,
-        "TAKEABLE": True,
         "NEEDITEM": None,
-        #TODO "DIALOGENTRY": strings.PLAYER_DIALOG_PASSKEY_LEVEL1
+        "DIALOGENTRY": strings.PLAYER_DIALOG_PASSKEY_LEVEL1
     }
 }
 

@@ -14,110 +14,146 @@ __DEBUG_FLAG = True
 
 
 def clear_screen():
-    if os.name == 'nt': # If OS is Windows
-        os.system("cls")
-    
-    else:
-        os.system("clear")
+	if os.name == 'nt': # If OS is Windows
+		os.system("cls")
+	
+	else:
+		os.system("clear")
 
 
 def GAME_INIT():
-    print("loading...")
+	print("loading...")
 
-    if os.name == 'nt': # If OS is Windows or Windows-based...
-        os.system("title " + strings.META_GAMETITLE)
+	if os.name == 'nt': # If OS is Windows or Windows-based...
+		os.system("title " + strings.META_GAMETITLE)
 
-    else:
-        # While it is possible to set a custom title on Linux, I need to focus on Windows users first.
-        # Thus this feature is currently disabled on Linux.
-        pass
+	else:
+		# While it is possible to set a custom title on Linux, I need to focus on Windows users first.
+		# Thus this feature is currently disabled on Linux.
+		pass
 
-    if os.path.isfile(strings.META_SAVEFILE) == True: # If the save file exists...
-        try:
-            config.read(strings.META_SAVEFILE)
-        
-        except Exception as error: # The save file is unreadable or corrupted
-            cprint("ERROR! The save file '"+strings.META_SAVEFILE+"' is unreadable or corrupted !", "red")
-            cprint("Try to restore it to an earlier version or to remove it,", "red")
-            cprint("-to allow the game to start from a new one.", "red")
-            cprint("DEBUG INFOS: " + str(error), "yellow")
-            input()
-            sys.exit(0)
-    
-    else:
-        with open(strings.META_SAVEFILE, "w") as config_file:
-            config["GAMEDATA"] = {
-                "CURRENTZONE": "CRASHEDSHIP", # The starting point of the game
-                "INVENTORY": None
-            }
+		
 
-    while True: # Title screen
-        pass
+	while True: # Title screen
+		clear_screen()
+		print(colored(strings.META_GAMENAME, "cyan") + " -- by " + strings.META_GAMECREATOR)
+		cprint("Version " + strings.META_GAMEVERSION)
+		print("-----------\n")
+		
+		print("1/ Start a new game")
+
+		if os.path.isfile(strings.META_SAVEFILE) == True: # If the save file exists...
+			game_save_exists = True
+			print("2/ " + colored("Load your save", "green"))
+		
+		else:
+			game_save_exists = False
+		
+		print("99/ Exit the game")
+			
+		user_choice = input("Menu> ")
+
+		if user_choice == "1":
+			cprint("Are you sure you want to start a new game ?", "yellow")
+			cprint("Doing this will erase all existing progress you may have made", "yellow")
+			print("enter 'start' without quotes to start a new game.")
+			user_verify = input("Menu/confirm> ").lower()
+			
+			if user_verify == "start":
+				config["GAMEDATA"] = {
+				"CURRENTZONE": "CRASHEDSHIP", # The starting point of the game
+				"INVENTORY": ["IDENTITYCARD"]
+				}
+
+				save_game()
+				clear_screen()
+				return
+			
+			else:
+				continue
+		
+		elif user_choice == "2" and game_save_exists == True:
+			try:
+				config.read(strings.META_SAVEFILE)
+		
+			except Exception as error: # The save file is unreadable or corrupted
+				cprint("ERROR! The save file '"+strings.META_SAVEFILE+"' is unreadable or corrupted !", "red")
+				cprint("Try to restore it to an earlier version or or start a new game,", "red")
+				cprint("DEBUG INFOS: " + str(error), "yellow")
+				continue
+		
+		elif user_choice == "99":
+			sys.exit()
+		
+		else:
+			print("Incorrect choice!")
+			input("Press [ENTER] to continue...")
+			continue
 
 
 def save_game():
 	with open(strings.META_SAVEFILE, "w") as save_file:
 		config.write(save_file)
 
+
 def welcome():
-    """
-    Displays the welcome message at the start of the game
-    """
+	"""
+	Displays the welcome message at the start of the game
+	"""
 
-    print("Tale of Delamar - version " + strings.META_GAMEVERSION)
-    print("By " + strings.META_GAMECREATOR)
-    print(":: Type 'help' to get a list of all commands.")
-
+	print("Tale of Delamar - version " + strings.META_GAMEVERSION)
+	print("By " + strings.META_GAMECREATOR)
+	print(":: Type 'help' to get a list of all commands.")
 
 
 def move_to_location(cardinal_point):
-    try:
-		if cardinal_point == "N":
+	"""
+	cardinal point should be "NORTH", "SOUTH", "EAST" or "WEST"
+	"""
 
-			old_room = config["DATA"]["CURRENTZONE"]
-			new_room = world.WORLD_ROOMS[old_room]["NORTH"]
-			
-			if world.WORLD_ROOMS[new_room]["NEEDITEM"] != None: # If an item is required to go there...
-				current_inventory = config["DATA"]["INVENTORY"]
-				needed_item_name = world.WORLD_ITEMS[world.WORLD_ROOMS[new_room]["NEEDITEM"]]["NAME"]
-				
-				if current_inventory == None:
-					tprint("You do not have the required item in your inventory,")
-					tprint("You need to have '" + needed_item_name + "'")
-				
-				else: # Inventory isn't blank
-					for item in inventory:
-						# TODO this
-						pass
-			
+	try:
 
-			
-			config["DATA"]["CURRENTZONE"] = new_room
+		old_room = config["DATA"]["CURRENTZONE"]
+		new_room = world.WORLD_ROOMS[old_room][cardinal_point]
 		
-		elif cardinal_point == "S":
-			old_room = config["DATA"]["CURRENTZONE"]
-			new_room = world.WORLD_ROOMS[old_room]["SOUTH"]
-			
-			config["DATA"]["CURRENTZONE"] = new_room
+		if new_room == None:
+			tprint("You cannot go there.")
+			return
 		
-		elif cardinal_point == "E":
-			old_room = config["DATA"]["CURRENTZONE"]
-			new_room = world.WORLD_ROOMS[old_room]["EAST"]
+		new_room_name = world.WORLD_ROOMS[new_room]["NAME"]
 			
-			config["DATA"]["CURRENTZONE"] = new_room
-		
-		elif cardinal_point == "W":
-			old_room = config["DATA"]["CURRENTZONE"]
-			new_room = world.WORLD_ROOMS[old_room]["WEST"]
+		if world.WORLD_ROOMS[new_room]["NEEDITEM"] != None: # If an item is required to go there...
+			current_inventory = config["DATA"]["INVENTORY"]
+			needed_item_id = world.WORLD_ITEMS[world.WORLD_ROOMS[new_room]["NEEDITEM"]]
+			needed_item_name = world.WORLD_ITEMS[world.WORLD_ROOMS[new_room]["NEEDITEM"]]["NAME"]
 			
+			if current_inventory == None:
+				tprint("You do not have the required item in your inventory,")
+				tprint("You need to have '" + needed_item_name + "'")
+				return
+				
+			else: # Inventory isn't blank
+				for item_id in current_inventory:
+					if item_id == needed_item_id: # If the player have the needed item in his inventory...
+						tprint("You entered by using " + needed_item_name)
+						tprint("you are now at : " + new_room_name)
+						config["DATA"]["CURRENTZONE"] = new_room
+						return # Exits the function
+					
+				# If we arrive here, this means that the player doesn't have the needed item.
+				tprint("You do not have the required item in your inventory,")
+				tprint("You need to have '" + needed_item_name + "'")
+				return
+			
+		else: # The room doesn't requires an item...
 			config["DATA"]["CURRENTZONE"] = new_room
+			tprint("You are now at : " + new_room_name)
+			return
 	
-	except Exception as error:
-		print("You cannot go there.")
-		
-		if __DEBUG_FLAG == True:
-			print("[DEBUG]: In function move_to_location(), Exception returned :")
-			print(str(error))
+	except Exception as error: # If we arrive here, this means that there is a bug in there, oops.
+		print("ERROR! in function move_to_location() try block raised an exception !")
+		print(str(error))
+		return
 
 
 def tprint(text, sleep_frame=strings.META_WAITFRAME): # TODO support multiparts (string lists)
@@ -128,24 +164,72 @@ def tprint(text, sleep_frame=strings.META_WAITFRAME): # TODO support multiparts 
 	print("") # Prints a new line
 	
 
+
+
+
 def look():
 	location_id = config["DATA"]["CURRENTZONE"]
 	location_name = world.WORLD_ROOMS[location_id]["NAME"]
-	is_item_in_zone = world.WORLD_ROOMS[location_id]["HASITEM"]
-	
-	north_name = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["NORTH"]]["NAME"]
-	south_name = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["SOUTH"]]["NAME"]
-	east_name = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["EAST"]]["NAME"]
-	west_name =world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["WEST"]]["NAME"]
-	
+	item_in_zone_id = world.WORLD_ROOMS[location_id]["HASITEM"]
+	current_inventory = config["DATA"]["INVENTORY"]
+
+	north_id = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["NORTH"]]
+	south_id = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["SOUTH"]]
+	east_id = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["EAST"]]
+	west_id = world.WORLD_ROOMS[world.WORLD_ROOMS[location_id]["WEST"]]
+
 	tprint("You are at " + location_name)
 	tprint("-----------" + "-"*len(location_name)) # Automatically adjusts the size of the separator
 	tprint(world.WORLD_ROOMS[location_id]["DIALOGENTRY"]) # TODO test this, hopefully it prints the dialog entry associated to the zone
 	tprint("-----------" + "-"*len(location_name))
+	tprint("Your surroundings --")
+
+	if north_id == None:
+		tprint("North: Nothing")
+	else:
+		tprint("North: " + world.WORLD_ROOMS[north_id]["NAME"])
 	
-	if 
+	if south_id == None:
+		tprint("South: Nothing")
+	else:
+		tprint("South: " + world.WORLD_ROOMS[south_id]["NAME"])
+
+	if east_id == None:
+		tprint("East: Nothing")
+	else:
+		tprint("East: " + world.WORLD_ROOMS[east_id]["NAME"])
+
+	if west_id == None:
+		tprint("West: Nothing")
+	else:
+		tprint("West: " + world.WORLD_ROOMS[west_id]["NAME"])
 	
-		
+	if item_in_zone_id != None: # If there is an item in the current zone
+		for item_id in current_inventory:
+			if item_id == item_in_zone_id: # If the player already have the item...		
+				return # Exits the function
+					
+			# The player doesn't have the item in the zone yet. We pick it up.
+			tprint("You picked up an item !")
+			tprint("You got '" + world.WORLD_ITEMS[item_in_zone_id]["NAME"] + "'")
+
+			config["DATA"]["INVENTORY"].append(item_in_zone_id) # Adds the item to the inventory
+			return
+
+
+def whereami():
+	current_location_name = world.WORLD_ROOMS[config["DATA"]["CURRENTZONE"]]["NAME"]
+	tprint("You are at : " + current_location_name)
+
+
+def print_inventory():
+	current_inventory = config["DATA"]["INVENTORY"]
+	tprint("Inventory content : ")
+	for item_id in current_inventory:
+		item_name = world.WORLD_ITEMS[item_id]["NAME"]
+		tprint(" - " + item_name)
+	tprint("------------------")
+
 
 def game_loop():
 	while True:
@@ -166,19 +250,19 @@ def game_loop():
 			continue
 		
 		elif user_choice == "north" or "n":
-			move_to_location("N")
+			move_to_location("NORTH")
 			continue
 		
 		elif user_choice == "south" or "s":
-			move_to_location("S")
+			move_to_location("SOUTH")
 			continue
 		
 		elif user_choice == "east" or "e":
-			move_to_location("E")
+			move_to_location("EAST")
 			continue
 		
 		elif user_choice == "west" or "w":
-			move_to_location("W")
+			move_to_location("WEST")
 			continue
 
 		elif user_choice == "look":
@@ -186,7 +270,7 @@ def game_loop():
 			continue
 
 		elif user_choice == "inventory":
-			inventory()
+			print_inventory()
 			continue
 		
 		else:
@@ -194,3 +278,7 @@ def game_loop():
 			continue
 
 
+GAME_INIT()
+clear_screen()
+welcome()
+game_loop()
