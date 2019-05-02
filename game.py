@@ -14,6 +14,8 @@ config = configparser.ConfigParser()
 PLAYER_INVENTORY = None # Initialize the inventory for future use.
 __DEBUG_FLAG = True
 
+def getstring(string_var):
+	return string_var[config.get("GAMEDATA", "LANGUAGE")]
 
 def clear_screen():
 	if os.name == 'nt': # If OS is Windows
@@ -63,11 +65,31 @@ def GAME_INIT():
 			user_verify = input("Menu/confirm> ").lower()
 			
 			if user_verify == "start":
+			
+				print("Select your language : ")
+				print("1/ Français")
+				print("2/ English")
+
+				language_choice = input("Menu/confirm/language> ")
+
+				if language_choice == "1":
+					game_language = "FR"
+				
+				elif language_choice == "2":
+					game_language = "EN"
+
+				else:
+					cprint("Incorrect entry !", "yellow")
+					input()
+					continue
+
+
 				config["GAMEDATA"] = {
 				"CURRENTZONE": "CRASHSITE", # The starting point of the game
 				"INVENTORY": [
 					"IDENTITYCARD"
-					]
+					],
+				"LANGUAGE": game_language
 				}
 
 				save_game()
@@ -172,10 +194,17 @@ def move_to_location(cardinal_point):
 		return
 
 
-def tprint(text, sleep_frame=strings.META_WAITFRAME): # TODO support multiparts (string lists)
-	for letter in text:
-		print(letter, end="")
-		time.sleep(sleep_frame)
+def tprint(text, sleep_frame=strings.META_WAITFRAME):
+	if type(text) is list:
+		for multipart in text:
+			for letter in multipart:
+				print(letter, end='')
+				time.sleep(sleep_frame)
+	
+	else:
+		for letter in text:
+			print(letter, end='')
+			time.sleep(sleep_frame)
 	
 	print("") # Prints a new line
 
@@ -193,7 +222,7 @@ def look():
 
 	tprint("You are at " + location_name)
 	tprint("-----------" + "-"*len(location_name)) # Automatically adjusts the size of the separator
-	tprint(world.WORLD_ROOMS[location_id]["DIALOGENTRY"]) # TODO test this, hopefully it prints the dialog entry associated to the zone
+	tprint(world.WORLD_ROOMS[location_id]["DIALOGENTRY"])
 	tprint("-----------" + "-"*len(location_name))
 	tprint("Your surroundings --")
 
@@ -239,7 +268,8 @@ def look():
 
 
 def whereami():
-	current_location_name = world.WORLD_ROOMS[config["GAMEDATA"]["CURRENTZONE"]]["NAME"]
+	game_language = config.get("GAMEDATA", "LANGUAGE")
+	current_location_name = world.WORLD_ROOMS[config["GAMEDATA"]["CURRENTZONE"]]["NAME"][game_language]
 	tprint("You are at : " + current_location_name)
 
 
@@ -261,7 +291,7 @@ def game_loop():
 		user_choice = input("> ").lower()
 
 		if user_choice == "help":
-			print(strings._HELP_MESSAGE)
+			print(getstring(strings._T_HELP_MESSAGE))
 			continue
 		
 		elif user_choice == "quit":
