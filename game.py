@@ -7,6 +7,7 @@ import os
 import sys
 import time
 import ast
+import traceback
 init()
 
 config = configparser.ConfigParser()
@@ -111,6 +112,10 @@ def welcome():
 	print("By " + strings.META_GAMECREATOR)
 	print(":: Type 'help' to get a list of all commands.")
 
+	if __DEBUG_FLAG == True:
+		cprint("Debug flag enabled !", "yellow")
+		cprint("Traceback and exception printing enabled !", "yellow")
+
 
 def move_to_location(cardinal_point):
 	"""
@@ -125,9 +130,13 @@ def move_to_location(cardinal_point):
 		if new_room == None:
 			tprint("You cannot go there.")
 			return
+
 		
 		new_room_name = world.WORLD_ROOMS[new_room]["NAME"]
-			
+		
+		debug("new_room = " + str(new_room))
+		debug("new_room_name = " + str(new_room_name))
+
 		if world.WORLD_ROOMS[new_room]["NEEDITEM"] != None: # If an item is required to go there...
 			current_inventory = config["GAMEDATA"]["INVENTORY"]
 			needed_item_id = world.WORLD_ITEMS[world.WORLD_ROOMS[new_room]["NEEDITEM"]]
@@ -159,6 +168,7 @@ def move_to_location(cardinal_point):
 	except Exception as error: # If we arrive here, this means that there is a bug in there, oops.
 		print("ERROR! in function move_to_location() try block raised an exception !")
 		print(str(error))
+		traceback.print_exc()
 		return
 
 
