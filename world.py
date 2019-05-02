@@ -24,35 +24,35 @@ WORLD_ITEMS = {
         "ID": "BLACKBOX",
         "NAME": "Boîte noire",
         "NEEDITEM": "TAPE_PLAYER",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_BLACKBOX1
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_BLACKBOX1
     },
 
     "IDENTITYCARD": {
         "ID": "IDENTITYCARD",
         "NAME": "Carte d'identité",
         "NEEDITEM": None,
-        "DIALOGENTRY": strings.PLAYER_DIALOG_IDENTITYCARD
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_IDENTITYCARD
     },
 
     "TAPE_PLAYER": {
         "ID": "TAPE_PLAYER",
         "NAME": "Lecteur de cassettes",
         "NEEDITEM": None,
-        "DIALOGENTRY": strings.PLAYER_DIALOG_TAPE_PLAYER
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_TAPE_PLAYER
     },
 
     "CROWBAR": {
         "ID": "CROWBAR",
         "NAME": "Pied-de-biche",
         "NEEDITEM": None,
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CROWBAR
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CROWBAR
     },
 
     "PASSKEY_LEVEL1": {
         "ID": "PASSKEY_LEVEL1",
         "NAME": "Carte d'accès (Niveau 1)",
         "NEEDITEM": None,
-        "DIALOGENTRY": strings.PLAYER_DIALOG_PASSKEY_LEVEL1
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_PASSKEY_LEVEL1
     }
 }
 
@@ -60,8 +60,8 @@ WORLD_ITEMS = {
 
 WORLD_ROOMS = {
     "CRASHSITE": {
-        "NAME": "Site du crash",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_1,
+        "NAME": strings.ZONE_I_CRASHSITE,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_1,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "BASE1",
