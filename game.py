@@ -139,7 +139,7 @@ def move_to_location(cardinal_point):
 
 		if world.WORLD_ROOMS[new_room]["NEEDITEM"] != None: # If an item is required to go there...
 			current_inventory = config["GAMEDATA"]["INVENTORY"]
-			needed_item_id = world.WORLD_ITEMS[world.WORLD_ROOMS[new_room]["NEEDITEM"]]
+			needed_item_id = world.WORLD_ITEMS[world.WORLD_ROOMS[new_room]["NEEDITEM"]]["ID"]
 			needed_item_name = world.WORLD_ITEMS[world.WORLD_ROOMS[new_room]["NEEDITEM"]]["NAME"]
 			
 			if current_inventory == None:

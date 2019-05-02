@@ -107,7 +107,7 @@ WORLD_ROOMS = {
         "NAME": "Emplacement de la boîte noire",
         "DIALOGENTRY": strings.PLAYER_DIALOG_SITE_BLACKBOX1,
         "NEEDITEM": None,
-        "HASITEM": WORLD_ITEMS["BLACKBOX"],
+        "HASITEM": "BLACKBOX",
         "NORTH": None,
         "SOUTH": "MINING2",
         "EAST": None,
@@ -128,8 +128,8 @@ WORLD_ROOMS = {
     "CRASHEDSHIP": {
         "NAME": "Vaisseau écrasé",
         "DIALOGENTRY": strings.PLAYER_DIALOG_CRASHEDSHIP,
-        "NEEDITEM": WORLD_ITEMS["CROWBAR"],
-        "HASITEM": WORLD_ITEMS["PASSKEY_LEVEL1"],
+        "NEEDITEM": "CROWBAR",
+        "HASITEM": "PASSKEY_LEVEL1",
         "NORTH": "MINING1",
         "SOUTH": None,
         "EAST": "DUNES2",
@@ -161,7 +161,7 @@ WORLD_ROOMS = {
     "CITY1_GATES": {
         "NAME": "Portes d'accès à Shubin",
         "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_GATES,
-        "NEEDITEM": WORLD_ITEMS["PASSKEY_LEVEL1"],
+        "NEEDITEM": "PASSKEY_LEVEL1",              
         "HASITEM": None,
         "NORTH": "CITY1_CENTER",
         "SOUTH": "DUNES3",
