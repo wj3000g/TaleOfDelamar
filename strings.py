@@ -83,9 +83,22 @@ PLAYER_DIALOG_DUNES2 = {
     "EN": "Even more dunes..."
 }
 
-PLAYER_DIALOG_CRASHEDSHIP = "Vous êtes devant vôtre vaisseau à moitié détruit."
+PLAYER_DIALOG_DUNES3 = {
+    "FR": "Encore plus de dunes...",
+    "EN": "Even more dunes..."
+}
 
-PLAYER_DIALOG_MINING1 = "Vous êtes devant le site de minage 'Kudre'"
+
+I_PLAYER_DIALOG_CRASHEDSHIP = {
+    "FR": "Vous êtes devant vôtre vaisseau à moitié détruit.",
+    "EN": "You are in front of your crashed ship."
+}
+
+I_PLAYER_DIALOG_MINING1 = {
+    "FR": "Vous êtes devant le site de minage 'Kudre'",
+    "EN": "You are in front of the mining site 'Kudre'"
+
+}
 
 I_PLAYER_DIALOG_BLACKBOX1 = {
     "FR": "Une boîte noire, une lecteur de cassettes est requis pour le lire.",
@@ -112,10 +125,26 @@ I_PLAYER_DIALOG_IDENTITYCARD = {
     "EN": "An identity card"
 }
 
-PLAYER_DIALOG_CITY1_CENTER = _PLACEHOLDER
-PLAYER_DIALOG_CITY1_GATES = _PLACEHOLDER
-PLAYER_DIALOG_DUNES3 = _PLACEHOLDER
-PLAYER_DIALOG_CITY1_HABS = _PLACEHOLDER
+I_PLAYER_DIALOG_CITY1_CENTER = {
+    "FR": ""
+}
+
+I_PLAYER_DIALOG_CITY1_CENTER = {
+    "FR": "Vous êtes au centre ville, vous apercevez des magasins de partout.",
+    "EN": "You are in the city centre"
+}
+
+I_PLAYER_DIALOG_CITY1_GATES = {
+    "FR": "Vous êtes devant des portes, il est écrit sur un panneau 'Ville de Shubin'.",
+    "EN": "You are in front of doors, it is written on a sign 'City of Shubin'."
+}
+
+I_PLAYER_DIALOG_CITY1_HABS = {
+    "FR": "Vous êtes devant un grand bâtiment, il est écrit sur un panneau 'Shubin Habs'.",
+    "EN": "You are in front of a big building, it is written on a sign 'Shubin Habs'."
+}
+
+
 PLAYER_DIALOG_CITY1_OFFICE = _PLACEHOLDER
 PLAYER_DIALOG_CITY1_PATH1 = _PLACEHOLDER
 PLAYER_DIALOG_CITY1_TOOLSMITH = _PLACEHOLDER
