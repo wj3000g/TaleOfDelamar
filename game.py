@@ -156,6 +156,26 @@ def draw_map():
 	"""
 	pass
 
+	# We get the terminal screen size, it will be used to center text later
+	term_columns, term_rows = os.get_terminal_size()
+
+	location_id = config["GAMEDATA"]["CURRENTZONE"]
+	current_location_name = world.WORLD_ROOMS[location_id]["NAME"]
+
+	north_id = world.WORLD_ROOMS[location_id]["NORTH"]
+	south_id = world.WORLD_ROOMS[location_id]["SOUTH"]
+	east_id = world.WORLD_ROOMS[location_id]["EAST"]
+	west_id = world.WORLD_ROOMS[location_id]["WEST"]
+
+	if north_id != None:
+		# We get the length of the room name, with the current language
+		north_room_name_len = len(getstring(world.WORLD_ROOMS[north_id]["NAME"]))
+		debug("ROOM LEN: " + str(north_room_name_len))
+
+
+
+
+
 def move_to_location(cardinal_point):
 	"""
 	cardinal point should be "NORTH", "SOUTH", "EAST" or "WEST"
@@ -343,6 +363,10 @@ def game_loop():
 
 		elif user_choice == "inventory":
 			print_inventory()
+			continue
+		
+		elif user_choice == "map":
+			draw_map()
 			continue
 		
 		else:

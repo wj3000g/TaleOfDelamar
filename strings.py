@@ -45,11 +45,6 @@ I_PLAYER_DIALOG_1 = {
     ]
 }
 
-ZONE_I_CRASHSITE = {
-    "EN": "The crash site",
-    "FR": "Le site du crash"
-}
-
 PLAYER_DIALOG_BASE1 = {
     "FR": [
         "(vous passez par ce qui s'apparente à un SAS détruit...)",
@@ -141,11 +136,49 @@ I_PLAYER_DIALOG_CITY1_HABS = {
 }
 
 I_PLAYER_DIALOG_CITY1_OFFICE = {
-    "FR": "Vous êtes devant l'office de tourisme, "
+    "FR": "Vous êtes devant l'office de tourisme.",
+    "EN": "You are in front of the tourism office."
+}
+
+I_PLAYER_DIALOG_CITY1_PATH1 = {
+    "FR": "Vous êtes dans une ptite ruelle, vous voyez quelques bâtiments par les ouvertures du cache-soleil",
+    "EN": "You are in a small alley, you see some buildings through the sunshade openings"
+}
+
+I_PLAYER_DIALOG_CITY1_TOOLSMITH = {
+    "FR": "Vous êtes devant un magasin d'outillage.",
+    "EN": "You are in front of a toolsmith store."
+}
+
+I_PLAYER_DIALOG_CITY1_ATLASSTORE = {
+    "FR": "Vous êtes devant le magasin Atlas.",
+    "EN": "You are in front of the Atlas Store."
 }
 
 
-I_PLAYER_DIALOG_CITY1_PATH1 = _PLACEHOLDER
-I_PLAYER_DIALOG_CITY1_TOOLSMITH = _PLACEHOLDER
-I_PLAYER_DIALOG_CITY1_ATLASSTORE = _PLACEHOLDER
-I_PLAYER_DIALOG_CITY1_EXIT = _PLACEHOLDER
+I_PLAYER_DIALOG_CITY1_EXIT = {
+    "FR": "Vous êtes devant la sortie de Shubin.",
+    "EN": "You are in front of Shubin's exit."
+}
+
+
+ZONE_I_CRASHSITE = {
+    "FR": "Le site du crash",
+    "EN": "The crash site"
+}
+
+ZONE_I_BASE1 = {
+    "FR": "La base abandonnée",
+    "EN": "The abandonned base"
+}
+
+ZONE_I_DUNES1 = {
+    "FR": "Des dunes à parte de vue",
+    "EN": _PLACEHOLDER
+}
+
+ZONE_I_MINING2 = {
+    "FR": "Site de minage 'Kudre Ore'",
+    "EN": "'Kudre Ore' mining site"
+}
+
