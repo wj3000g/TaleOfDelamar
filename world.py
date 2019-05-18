@@ -71,7 +71,7 @@ WORLD_ROOMS = {
     },
 
     "BASE1": {
-        "NAME": "Base abandonnée",
+        "NAME": strings.ZONE_I_BASE1,
         "DIALOGENTRY": strings.PLAYER_DIALOG_BASE1,
         "NEEDITEM": None,
         "HASITEM": "CROWBAR",
@@ -82,7 +82,7 @@ WORLD_ROOMS = {
     },
 
     "DUNES1": {
-        "NAME": "Dunes (Est)",
+        "NAME": strings.ZONE_I_DUNES1,
         "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES1,
         "NEEDITEM": None,
         "HASITEM": None,
@@ -93,7 +93,7 @@ WORLD_ROOMS = {
     },
 
     "MINING2": {
-        "NAME": "Site de minage 'Shubin'",
+        "NAME": strings.ZONE_I_MINING2,
         "DIALOGENTRY": strings.PLAYER_DIALOG_MINING2,
         "NEEDITEM": None,
         "HASITEM": None,
@@ -104,7 +104,7 @@ WORLD_ROOMS = {
     },
 
     "BLACKBOX1": {
-        "NAME": "Emplacement de la boîte noire",
+        "NAME": strings.ZONE_I_BLACKBOX1,
         "DIALOGENTRY": strings.PLAYER_DIALOG_SITE_BLACKBOX1,
         "NEEDITEM": None,
         "HASITEM": "BLACKBOX",
@@ -115,7 +115,7 @@ WORLD_ROOMS = {
     },
 
     "DUNES2": {
-        "NAME": "Dunes (Ouest)",
+        "NAME": strings.ZONE_I_DUNES2,
         "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES2,
         "NEEDITEM": None,
         "HASITEM": None,
@@ -126,8 +126,8 @@ WORLD_ROOMS = {
     },
 
     "CRASHEDSHIP": {
-        "NAME": "Vaisseau écrasé",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CRASHEDSHIP,
+        "NAME": strings.ZONE_I_CRASHEDSHIP,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CRASHEDSHIP,
         "NEEDITEM": "CROWBAR",
         "HASITEM": "PASSKEY_LEVEL1",
         "NORTH": "MINING1",
@@ -137,8 +137,8 @@ WORLD_ROOMS = {
     },
 
     "MINING1": {
-        "NAME": "Site de minage 'Kudre'",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_MINING1,
+        "NAME": strings.ZONE_I_MINING1,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_MINING1,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": None,
@@ -148,7 +148,7 @@ WORLD_ROOMS = {
     },
 
     "DUNES3": {
-        "NAME": "Dunes (Nord)",
+        "NAME": strings.ZONE_I_DUNES3,
         "DIALOGENTRY": strings.PLAYER_DIALOG_DUNES3,
         "NEEDITEM": None,
         "HASITEM": None,
@@ -159,8 +159,8 @@ WORLD_ROOMS = {
     },
 
     "CITY1_GATES": {
-        "NAME": "Portes d'accès à Shubin",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_GATES,
+        "NAME": strings.ZONE_I_CITY1_GATES,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CITY1_GATES,
         "NEEDITEM": "PASSKEY_LEVEL1",              
         "HASITEM": None,
         "NORTH": "CITY1_CENTER",
@@ -170,8 +170,8 @@ WORLD_ROOMS = {
     },
 
     "CITY1_CENTER": {
-        "NAME": "Centre ville (Shubin)",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_CENTER,
+        "NAME": strings.ZONE_I_CITY1_CENTER,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CITY1_CENTER,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_PATH1",
@@ -181,8 +181,8 @@ WORLD_ROOMS = {
     },
 
     "CITY1_HABS": {
-        "NAME": "Quartier d'habitations (Shubin)",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_HABS,
+        "NAME": strings.ZONE_I_CITY1_HABS,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CITY1_HABS,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_OFFICE",
@@ -192,8 +192,8 @@ WORLD_ROOMS = {
     },
     
     "CITY1_OFFICE": {
-        "NAME": "Bureau d'administration (Shubin)",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_OFFICE,
+        "NAME": strings.ZONE_I_CITY1_OFFICE,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CITY1_OFFICE,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_EXIT",
@@ -203,8 +203,8 @@ WORLD_ROOMS = {
     },
 
     "CITY1_PATH1": {
-        "NAME": "Intersection nord (Shubin)",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_PATH1,
+        "NAME": strings.ZONE_I_CITY1_PATH1,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CITY1_PATH1,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_EXIT",
@@ -214,8 +214,8 @@ WORLD_ROOMS = {
     },
 
     "CITY1_TOOLSMITH": {
-        "NAME": "Atelier d'outillage (Shubin)",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_TOOLSMITH,
+        "NAME": strings.ZONE_I_CITY1_TOOLSMITH,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CITY1_TOOLSMITH,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": "CITY1_EXIT",
@@ -225,8 +225,8 @@ WORLD_ROOMS = {
     },
 
     "CITY1_ATLAS_STORE": {
-        "NAME": "Magasin 'Atlas Store'",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_ATLASSTORE,
+        "NAME": strings.ZONE_I_CITY1_ATLAS_STORE,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CITY1_ATLASSTORE,
         "NEEDITEM": None,
         "HASITEM": WORLD_ITEMS["TAPE_PLAYER"],
         "NORTH": "CITY1_TOOLSMITH",
@@ -236,8 +236,8 @@ WORLD_ROOMS = {
     },
 
     "CITY1_EXIT": {
-        "NAME": "Sortie de la ville (Shubin)",
-        "DIALOGENTRY": strings.PLAYER_DIALOG_CITY1_EXIT,
+        "NAME": strings.ZONE_I_CITY1_EXIT,
+        "DIALOGENTRY": strings.I_PLAYER_DIALOG_CITY1_EXIT,
         "NEEDITEM": None,
         "HASITEM": None,
         "NORTH": None,

@@ -139,6 +139,23 @@ def welcome():
 		cprint("Traceback and exception printing enabled !", "yellow")
 
 
+def draw_map():
+	"""
+	okay so this one is a little tricky and experimental, let me explain:
+	We draw a map of the player's surroundings, sounds easy right ? Wrong.
+	Because we're on a command line, we're drawing stuff up to down.
+	So we need to know if we're drawing the room on the player's north, if yes, draw it.
+	The size of the "boxes" of the rooms will be determined by the length of the name of the room +2, 
+	so it's nicely centered and stuff.
+	Then we need to know if we're drawing the room at the left, if yes, 
+	we need to move the room to the north first, etc, etc...
+
+	See why it's complicated ?
+
+	I plan to (try to) implement this in the v0.4.0, but not before.
+	"""
+	pass
+
 def move_to_location(cardinal_point):
 	"""
 	cardinal point should be "NORTH", "SOUTH", "EAST" or "WEST"
@@ -277,7 +294,7 @@ def print_inventory():
 	tprint("Inventory content : ")
 	# old method (broken) : current_inventory = json.loads(config["GAMEDATA"]["INVENTORY"])
 	# old method (broken) : current_inventory = json.loads(config.get("GAMEDATA", "INVENTORY"))
-
+	# This is a "viking-type" workaround, it converts litteraly the save contents to a list
 	current_inventory = ast.literal_eval(config.get("GAMEDATA", "INVENTORY"))
 
 	for item_id in current_inventory:
