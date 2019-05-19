@@ -86,9 +86,7 @@ def GAME_INIT():
 
 				config["GAMEDATA"] = {
 				"CURRENTZONE": "CRASHSITE", # The starting point of the game
-				"INVENTORY": [
-					"IDENTITYCARD"
-					],
+				"INVENTORY": ["IDENTITYCARD"],
 				"LANGUAGE": game_language
 				}
 
@@ -176,6 +174,8 @@ def draw_map():
 
 
 
+
+
 def move_to_location(cardinal_point):
 	"""
 	cardinal point should be "NORTH", "SOUTH", "EAST" or "WEST"
@@ -237,6 +237,7 @@ def tprint(text, sleep_frame=strings.META_WAITFRAME):
 			for letter in multipart:
 				print(letter, end='')
 				time.sleep(sleep_frame)
+			print("")
 	
 	else:
 		for letter in text:
@@ -248,7 +249,7 @@ def tprint(text, sleep_frame=strings.META_WAITFRAME):
 
 def look():
 	location_id = config["GAMEDATA"]["CURRENTZONE"]
-	location_name = world.WORLD_ROOMS[location_id]["NAME"]
+	location_name = getstring(world.WORLD_ROOMS[location_id]["NAME"])
 	item_in_zone_id = world.WORLD_ROOMS[location_id]["HASITEM"]
 	current_inventory = config["GAMEDATA"]["INVENTORY"]
 
@@ -259,29 +260,29 @@ def look():
 
 	tprint("You are at " + location_name)
 	tprint("-----------" + "-"*len(location_name)) # Automatically adjusts the size of the separator
-	tprint(world.WORLD_ROOMS[location_id]["DIALOGENTRY"])
+	tprint(getstring(world.WORLD_ROOMS[location_id]["DIALOGENTRY"]))
 	tprint("-----------" + "-"*len(location_name))
 	tprint("Your surroundings --")
 
 	if north_id == None:
 		tprint("North: Nothing")
 	else:
-		tprint("North: " + world.WORLD_ROOMS[north_id]["NAME"])
+		tprint("North: " + getstring(world.WORLD_ROOMS[north_id]["NAME"]))
 	
 	if south_id == None:
 		tprint("South: Nothing")
 	else:
-		tprint("South: " + world.WORLD_ROOMS[south_id]["NAME"])
+		tprint("South: " + getstring(world.WORLD_ROOMS[south_id]["NAME"]))
 
 	if east_id == None:
 		tprint("East: Nothing")
 	else:
-		tprint("East: " + world.WORLD_ROOMS[east_id]["NAME"])
+		tprint("East: " + getstring(world.WORLD_ROOMS[east_id]["NAME"]))
 
 	if west_id == None:
 		tprint("West: Nothing")
 	else:
-		tprint("West: " + world.WORLD_ROOMS[west_id]["NAME"])
+		tprint("West: " + getstring(world.WORLD_ROOMS[west_id]["NAME"]))
 	
 	tprint("-----------" + "-"*len(location_name))
 
@@ -297,7 +298,7 @@ def look():
 		# The player doesn't have the item in the zone yet. We pick it up.
 		tprint("You picked up an item !")
 		
-		new_item_name = item_in_zone_id["NAME"]
+		new_item_name = getstring(item_in_zone_id["NAME"])
 		print("You got '" + new_item_name + "'")
 		config.set("GAMEDATA", "INVENTORY", item_in_zone_id["ID"])
 		# Adds the item to the inventory
@@ -367,6 +368,9 @@ def game_loop():
 		
 		elif user_choice == "map":
 			draw_map()
+			continue
+		
+		elif user_choice == "": # If the user enters a new line, do nothing
 			continue
 		
 		else:

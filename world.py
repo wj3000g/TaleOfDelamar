@@ -22,35 +22,35 @@ import strings
 WORLD_ITEMS = {
     "BLACKBOX": {
         "ID": "BLACKBOX",
-        "NAME": "Boîte noire",
+        "NAME": strings.ITEM_I_NAME_BLACKBOX,
         "NEEDITEM": "TAPE_PLAYER",
         "DIALOGENTRY": strings.I_PLAYER_DIALOG_BLACKBOX1
     },
 
     "IDENTITYCARD": {
         "ID": "IDENTITYCARD",
-        "NAME": "Carte d'identité",
-        "NEEDITEM": None,
+        "NAME": strings.ITEM_I_NAME_IDENTITYCARD,
+        "NEEDITEM": None, 
         "DIALOGENTRY": strings.I_PLAYER_DIALOG_IDENTITYCARD
     },
 
     "TAPE_PLAYER": {
         "ID": "TAPE_PLAYER",
-        "NAME": "Lecteur de cassettes",
+        "NAME": strings.ITEM_I_NAME_TAPEPLAYER,
         "NEEDITEM": None,
         "DIALOGENTRY": strings.I_PLAYER_DIALOG_TAPE_PLAYER
     },
 
     "CROWBAR": {
         "ID": "CROWBAR",
-        "NAME": "Pied-de-biche",
+        "NAME": strings.ITEM_I_NAME_CROWBAR,
         "NEEDITEM": None,
         "DIALOGENTRY": strings.I_PLAYER_DIALOG_CROWBAR
     },
 
     "PASSKEY_LEVEL1": {
         "ID": "PASSKEY_LEVEL1",
-        "NAME": "Carte d'accès (Niveau 1)",
+        "NAME": strings.ITEM_I_NAME_PASSKEY_LEVEL1,
         "NEEDITEM": None,
         "DIALOGENTRY": strings.I_PLAYER_DIALOG_PASSKEY_LEVEL1
     }

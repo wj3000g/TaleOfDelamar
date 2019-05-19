@@ -9,7 +9,7 @@ META_GAMEVERSION = "0.2.0"
 META_GAMECREATOR = "Sandai"
 META_GAMETITLE = META_GAMENAME + " - version " + META_GAMEVERSION
 META_SAVEFILE = "SAVE.ini"
-META_WAITFRAME = 0.02 # Wait frame between each character appearance
+META_WAITFRAME = 0.03 # Wait frame between each character appearance
 
 
 # These are a bunch of misc strings
@@ -173,8 +173,8 @@ ZONE_I_BASE1 = {
 }
 
 ZONE_I_DUNES1 = {
-    "FR": "Des dunes à parte de vue",
-    "EN": _PLACEHOLDER
+    "FR": "Dunes (Est)",
+    "EN": "Dunes (Est)"
 }
 
 ZONE_I_MINING2 = {
@@ -182,3 +182,92 @@ ZONE_I_MINING2 = {
     "EN": "'Kudre Ore' mining site"
 }
 
+ZONE_I_BLACKBOX1 = {
+    "FR": "Emplacement de la boîte noire.",
+    "EN": "The blackbox site."
+}
+
+ZONE_I_DUNES2 = {
+    "FR": "Dunes (Ouest)",
+    "EN": "Dunes (West)"
+}
+
+ZONE_I_CRASHEDSHIP = {
+    "FR": "Le vaisseau écrasé",
+    "EN": "The crashed ship"
+}
+
+ZONE_I_MINING1 = {
+    "FR": "Site de minage 'Shubin'",
+    "EN": "'Shubin' mining site"
+}
+
+ZONE_I_DUNES3 = {
+    "FR": "Dunes (Nord)",
+    "EN": "Dunes (North)"
+}
+
+ZONE_I_CITY1_GATES = {
+    "FR": "Portes d'accès à la ville de Shubin",
+    "EN": _PLACEHOLDER
+}
+
+ZONE_I_CITY1_CENTER = {
+    "FR": "Centre ville (Shubin)",
+    "EN": "City's center (Shubin)"
+}
+
+ZONE_I_CITY1_HABS = {
+    "FR": "Quartiers d'habitations (Shubin)",
+    "EN": "Residential areas (Shubin)"
+}
+
+ZONE_I_CITY1_OFFICE = {
+    "FR": "Office de tourisme (Shubin)",
+    "EN": "Tourism office (Shubin)"
+}
+
+ZONE_I_CITY1_TOOLSMITH = {
+    "FR": "Magasin d'outillage (Shubin)",
+    "EN": "Toolsmith store (Shubin)"
+}
+
+ZONE_I_CITY1_ATLAS_STORE = {
+    "FR": "Magasin Atlas (Shubin)",
+    "EN": "Atlas store (Shubin)"
+}
+
+ZONE_I_CITY1_EXIT = {
+    "FR": "Sortie de Shubin",
+    "EN": "Shubin's exit"
+}
+
+ZONE_I_CITY1_PATH1 = {
+    "FR": "Petite ruelle (Shubin)",
+    "EN": "Small alley (Shubin)"
+}
+
+ITEM_I_NAME_BLACKBOX = {
+    "FR": "Boîte noire",
+    "EN": "Blackbox"
+}
+
+ITEM_I_NAME_IDENTITYCARD = {
+    "FR": "Carte d'identité",
+    "EN": "Identity card"
+}
+
+ITEM_I_NAME_TAPEPLAYER = {
+    "FR": "Lecteur de cassettes",
+    "EN": "Tape player"
+}
+
+ITEM_I_NAME_CROWBAR = {
+    "FR": "Pied-de-biche",
+    "EN": "Crowbar"
+}
+
+ITEM_I_NAME_PASSKEY_LEVEL1 = {
+    "FR": "Carte d'accès (Niveau 1)",
+    "EN": "Passkey (Level 1)"
+}
