@@ -389,7 +389,7 @@ def print_inventory():
 
 	for item_id in current_inventory:
 		item_name = world.WORLD_ITEMS[item_id]["NAME"]
-		print(str(current_inventory.index(item_id) + 1) + " - " + item_name)
+		print(" - " + item_name)
 	tprint("------------------")
 
 
@@ -434,32 +434,6 @@ def game_loop():
 		elif user_choice == "inventory":
 			print_inventory()
 			continue
-		
-		elif user_choice == "drop":
-			print_inventory()
-			print("-----------")
-			
-			try:
-				item_to_drop_number = int(("What would you like to drop ? [ID] : ")) + 1
-			
-			except:
-				print("You must enter a number !")
-				continue
-			
-			current_inventory = ast.literal_eval(config.get("GAMEDATA", "INVENTORY"))
-
-			for item_id in current_inventory:
-				if current_inventory.index(item_id) + 1 == item_to_drop_number:
-					item_to_drop_id = item_id
-					break
-			
-			item_to_drop_name = getstring(world.WORLD_ITEMS[item_id]["NAME"])
-
-			user_confirm = input("Are tou sure you want to drop " + item_to_drop_name + " ? [y/n] : ").lower()
-
-			if user_confirm == "y":
-				pass
-
 		
 		elif user_choice == "map":
 			draw_map()
