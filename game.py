@@ -219,6 +219,9 @@ def draw_map():
 		MAP_MIDDLEBLOCK_BODY += "| " + east_room_name + " |"
 		MAP_MIDDLEBLOCK_FOOTER += "=" * (east_room_name_len + 2)
 	
+	MAP_MIDDLEBLOCK_HEADER += "====" # Dirty workaround to show "box-like"
+	MAP_MIDDLEBLOCK_FOOTER += "===="
+
 	print_centered(MAP_MIDDLEBLOCK_HEADER)
 	print_centered(MAP_MIDDLEBLOCK_BODY_DIRECTION)
 	print_centered(MAP_MIDDLEBLOCK_BODY)
@@ -455,7 +458,7 @@ def game_loop():
 			user_confirm = input("Are tou sure you want to drop " + item_to_drop_name + " ? [y/n] : ").lower()
 
 			if user_confirm == "y":
-
+				pass
 
 		
 		elif user_choice == "map":
