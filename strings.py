@@ -169,7 +169,7 @@ ZONE_I_CRASHSITE = {
 
 ZONE_I_BASE1 = {
     "FR": "La base abandonnée",
-    "EN": "The abandonned base"
+    "EN": "The abandoned base"
 }
 
 ZONE_I_DUNES1 = {
@@ -209,7 +209,7 @@ ZONE_I_DUNES3 = {
 
 ZONE_I_CITY1_GATES = {
     "FR": "Portes d'accès à la ville de Shubin",
-    "EN": _PLACEHOLDER
+    "EN": "Doors to Shubin City"
 }
 
 ZONE_I_CITY1_CENTER = {

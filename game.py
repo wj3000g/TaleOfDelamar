@@ -14,6 +14,11 @@ config = configparser.ConfigParser()
 PLAYER_INVENTORY = None # Initialize the inventory for future use. (List)
 __DEBUG_FLAG = True
 
+def print_centered(text, opt_fillchar=" "):
+	term_columns = os.get_terminal_size()[0]
+
+	print(text.center(term_columns, opt_fillchar))
+
 def getstring(string_var):
 	return string_var[config.get("GAMEDATA", "LANGUAGE")]
 
@@ -152,13 +157,10 @@ def draw_map():
 
 	I plan to (try to) implement this in the v0.4.0, but not before.
 	"""
-	pass
 
-	# We get the terminal screen size, it will be used to center text later
-	term_columns, term_rows = os.get_terminal_size()
+	print_centered("= Showing map =", "-")
 
-	location_id = config["GAMEDATA"]["CURRENTZONE"]
-	current_location_name = world.WORLD_ROOMS[location_id]["NAME"]
+	location_id = config.get("GAMEDATA", "CURRENTZONE")
 
 	north_id = world.WORLD_ROOMS[location_id]["NORTH"]
 	south_id = world.WORLD_ROOMS[location_id]["SOUTH"]
@@ -167,13 +169,77 @@ def draw_map():
 
 	if north_id != None:
 		# We get the length of the room name, with the current language
-		north_room_name_len = len(getstring(world.WORLD_ROOMS[north_id]["NAME"]))
-		debug("ROOM LEN: " + str(north_room_name_len))
+		north_room_name = getstring(world.WORLD_ROOMS[north_id]["NAME"])
+		north_room_name_len = len(north_room_name)
+		# debug("ROOM LEN: " + str(north_room_name_len))
 
+		map_north_data_header = "=" * (north_room_name_len + 2) # Header + 2 add. spaces
+		map_north_data_body_direction = "| " + "- North -".center(north_room_name_len) + " |" 
+		map_north_data_body = "| " + north_room_name + " |"
+		map_north_data_footer = "=" * (north_room_name_len + 2) # Footer + 2 add. spaces
 
+		print_centered(map_north_data_header)
+		print_centered(map_north_data_body_direction)
+		print_centered(map_north_data_body)
+		print_centered(map_north_data_footer)
+	
+	# This one is a little trickier, we draw West, Here, and East at once.
+	
+	MAP_MIDDLEBLOCK_HEADER = ""
+	MAP_MIDDLEBLOCK_BODY_DIRECTION = ""
+	MAP_MIDDLEBLOCK_BODY = ""
+	MAP_MIDDLEBLOCK_FOOTER = ""
 
+	if west_id != None:
+		# We get the length of the room name, with the current language
+		west_room_name = getstring(world.WORLD_ROOMS[west_id]["NAME"])
+		west_room_name_len = len(west_room_name)
 
+		MAP_MIDDLEBLOCK_HEADER += "=" * (west_room_name_len + 2)
+		MAP_MIDDLEBLOCK_BODY_DIRECTION += "| " + "- West -".center(west_room_name_len) + " |"
+		MAP_MIDDLEBLOCK_BODY += "| " + west_room_name + " |"
+		MAP_MIDDLEBLOCK_FOOTER += "=" * (west_room_name_len + 2)
 
+	# then, we draw the current position of the player.
+
+	current_room_name = getstring(world.WORLD_ROOMS[config.get("GAMEDATA", "CURRENTZONE")]["NAME"])
+	current_room_name_len = len(current_room_name)
+
+	MAP_MIDDLEBLOCK_HEADER += "=" * (current_room_name_len + 2)
+	MAP_MIDDLEBLOCK_BODY_DIRECTION += "| " + "- Here -".center(current_room_name_len) + " |"
+	MAP_MIDDLEBLOCK_BODY += "| " + current_room_name + " |"
+	MAP_MIDDLEBLOCK_FOOTER += "=" * (current_room_name_len + 2)
+
+	if east_id != None:
+		# We get the length of the room name, with the current language
+		east_room_name = getstring(world.WORLD_ROOMS[east_id]["NAME"])
+		east_room_name_len = len(east_room_name)
+
+		MAP_MIDDLEBLOCK_HEADER += "=" * (east_room_name_len + 2)
+		MAP_MIDDLEBLOCK_BODY_DIRECTION += "| " + "- East -".center(east_room_name_len) + " |"
+		MAP_MIDDLEBLOCK_BODY += "| " + east_room_name + " |"
+		MAP_MIDDLEBLOCK_FOOTER += "=" * (east_room_name_len + 2)
+	
+	print_centered(MAP_MIDDLEBLOCK_HEADER)
+	print_centered(MAP_MIDDLEBLOCK_BODY_DIRECTION)
+	print_centered(MAP_MIDDLEBLOCK_BODY)
+	print_centered(MAP_MIDDLEBLOCK_FOOTER)
+
+	if south_id != None:
+		south_room_name = getstring(world.WORLD_ROOMS[south_id]["NAME"])
+		south_room_name_len = len(south_room_name)
+
+		map_south_data_header = "=" * (south_room_name_len + 2) # Header + 2 add. spaces
+		map_south_data_body_direction = "| " + "- South -".center(south_room_name_len) + " |" 
+		map_south_data_body = "| " + south_room_name + " |"
+		map_south_data_footer = "=" * (south_room_name_len + 2) # Footer + 2 add. spaces
+	
+		print_centered(map_south_data_header)
+		print_centered(map_south_data_body_direction)
+		print_centered(map_south_data_body)
+		print_centered(map_south_data_footer)
+	
+	print("") # New line
 
 
 def move_to_location(cardinal_point):
@@ -191,7 +257,7 @@ def move_to_location(cardinal_point):
 			return
 
 		
-		new_room_name = world.WORLD_ROOMS[new_room]["NAME"]
+		new_room_name = getstring(world.WORLD_ROOMS[new_room]["NAME"])
 		
 		debug("new_room = " + str(new_room))
 		debug("new_room_name = " + str(new_room_name))
