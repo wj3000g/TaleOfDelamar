@@ -11,7 +11,7 @@ import traceback
 init()
 
 config = configparser.ConfigParser()
-PLAYER_INVENTORY = None # Initialize the inventory for future use.
+PLAYER_INVENTORY = None # Initialize the inventory for future use. (List)
 __DEBUG_FLAG = True
 
 def getstring(string_var):
@@ -313,8 +313,10 @@ def whereami():
 
 def print_inventory():
 	tprint("Inventory content : ")
-	# old method (broken) : current_inventory = json.loads(config["GAMEDATA"]["INVENTORY"])
+	
+	# Even older method (broken) : current_inventory = json.loads(config["GAMEDATA"]["INVENTORY"])
 	# old method (broken) : current_inventory = json.loads(config.get("GAMEDATA", "INVENTORY"))
+	
 	# This is a "viking-type" workaround, it converts litteraly the save contents to a list
 	current_inventory = ast.literal_eval(config.get("GAMEDATA", "INVENTORY"))
 
