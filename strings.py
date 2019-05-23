@@ -5,7 +5,7 @@
 
 # These are strings that do not directly relate to the story, they relate to the game/program itself
 META_GAMENAME = "Tale Of Delamar"
-META_GAMEVERSION = "0.2.0"
+META_GAMEVERSION = "0.3.0 [PLAYTEST BUILD]"
 META_GAMECREATOR = "Sandai"
 META_GAMETITLE = META_GAMENAME + " - version " + META_GAMEVERSION
 META_SAVEFILE = "SAVE.ini"
