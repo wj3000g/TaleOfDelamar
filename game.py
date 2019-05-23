@@ -388,7 +388,7 @@ def print_inventory():
 	current_inventory = ast.literal_eval(config.get("GAMEDATA", "INVENTORY"))
 
 	for item_id in current_inventory:
-		item_name = world.WORLD_ITEMS[item_id]["NAME"]
+		item_name = getstring(world.WORLD_ITEMS[item_id]["NAME"])
 		print(" - " + item_name)
 	tprint("------------------")
 
