@@ -8,6 +8,7 @@ import sys
 import time
 import ast
 import traceback
+import datetime
 init()
 
 config = configparser.ConfigParser()
@@ -17,6 +18,38 @@ __DEBUG_FLAG = True
 def print_centered(text, opt_fillchar=" "):
 	term_columns = os.get_terminal_size()[0]
 	print(text.center(term_columns, opt_fillchar))
+
+def tprint(text, sleep_frame=strings.META_WAITFRAME):
+	if os.name == "nt":
+		if type(text) is list:
+			for multipart in text:
+				for letter in multipart:
+					print(letter, end='')
+					time.sleep(sleep_frame)
+				print("")
+		
+		else:
+			for letter in text:
+				print(letter, end='')
+				time.sleep(sleep_frame)
+	
+	else:
+		if type(text) is list:
+			for multipart in text:
+				for letter in multipart:
+					print(letter, end='')
+					sys.stdout.flush()
+					time.sleep(sleep_frame)
+				print("")
+		
+		else:
+			for letter in text:
+				print(letter, end='')
+				sys.stdout.flush()
+				time.sleep(sleep_frame)
+	
+	print("") # Prints a new line
+
 
 def getstring(string_var):
 	return string_var[config.get("GAMEDATA", "LANGUAGE")]
@@ -29,7 +62,11 @@ def clear_screen():
 		os.system("clear")
 
 def debug(text):
-	cprint("DEBUG: " + str(text), "yellow")
+	if __DEBUG_FLAG == True:
+		cprint("DEBUG: " + str(text), "yellow")
+
+	else:
+		pass
 
 def GAME_INIT():
 	print("loading...")
@@ -90,7 +127,7 @@ def GAME_INIT():
 
 				config["GAMEDATA"] = {
 				"CURRENTZONE": "CRASHSITE", # The starting point of the game
-				"INVENTORY": ["IDENTITYCARD"],
+				"INVENTORY": "IDENTITYCARD",
 				"LANGUAGE": game_language
 				}
 
@@ -299,26 +336,12 @@ def move_to_location(cardinal_point):
 		return
 
 
-def tprint(text, sleep_frame=strings.META_WAITFRAME):
-	if type(text) is list:
-		for multipart in text:
-			for letter in multipart:
-				print(letter, end='')
-				time.sleep(sleep_frame)
-			print("")
-	
-	else:
-		for letter in text:
-			print(letter, end='')
-			time.sleep(sleep_frame)
-	
-	print("") # Prints a new line
-
 
 def look():
 	location_id = config["GAMEDATA"]["CURRENTZONE"]
 	location_name = getstring(world.WORLD_ROOMS[location_id]["NAME"])
 	item_in_zone_id = world.WORLD_ROOMS[location_id]["HASITEM"]
+	item_in_zone_id_fulllist = world.WORLD_ITEMS[item_in_zone_id]
 	current_inventory = config["GAMEDATA"]["INVENTORY"]
 
 	north_id = world.WORLD_ROOMS[location_id]["NORTH"]
@@ -365,10 +388,18 @@ def look():
 		# The player doesn't have the item in the zone yet. We pick it up.
 		tprint("You picked up an item !")
 		
-		new_item_name = getstring(item_in_zone_id["NAME"])
+		new_item_name = getstring(item_in_zone_id_fulllist["NAME"])
 		print("You got '" + new_item_name + "'")
-		config.set("GAMEDATA", "INVENTORY", item_in_zone_id["ID"])
-		# Adds the item to the inventory
+
+		current_inventory = str(config.get("GAMEDATA", "INVENTORY")) # Get str from memory
+		current_inventory = current_inventory.split(", ") # Converts str to list
+		current_inventory.append(item_in_zone_id) # Add item to list
+		current_inventory = ', '.join(current_inventory) # Convert list to str
+
+		# Since config.set() only accepts str, we cast the list to an str just for this,
+		# We use ast.literal_eval() to cast it back to a list
+		config.set("GAMEDATA", "INVENTORY", str(current_inventory))
+		
 		return
 
 
@@ -385,9 +416,15 @@ def print_inventory():
 	# old method (broken) : current_inventory = json.loads(config.get("GAMEDATA", "INVENTORY"))
 	
 	# This is a "viking-type" workaround, it converts litteraly the save contents to a list
-	current_inventory = ast.literal_eval(config.get("GAMEDATA", "INVENTORY"))
+	# current_inventory = ast.literal_eval(config.get("GAMEDATA", "INVENTORY"))
+
+	# New method : split inventory content to make a list
+
+	current_inventory = str(config.get("GAMEDATA", "INVENTORY"))
+	current_inventory = current_inventory.split(", ")
 
 	for item_id in current_inventory:
+		debug("item_id : " + str(item_id))
 		item_name = getstring(world.WORLD_ITEMS[item_id]["NAME"])
 		print(" - " + item_name)
 	tprint("------------------")
@@ -446,8 +483,28 @@ def game_loop():
 			print("Invalid command, type 'help' to get a list of all commands.")
 			continue
 
+try:
+	GAME_INIT()
+	clear_screen()
+	welcome()
+	game_loop()
 
-GAME_INIT()
-clear_screen()
-welcome()
-game_loop()
+except KeyboardInterrupt:
+	pass
+
+except Exception as game_error:
+	with open(strings.META_CRASHFILE, "w") as crash_file:
+		today = datetime.date.today()
+		formatted_time = str(today.strftime('%d, %b %Y'))
+
+		crash_file.write("===== Tale of Delamar =====\n")
+		crash_file.write("Crash report : " + formatted_time + "\n")
+		crash_file.write("Base error : " + str(game_error) + "\n")
+		crash_file.write("===== Traceback =====\n")
+		crash_file.write(str(traceback.format_exc()) + "\n")
+		crash_file.write("===== End of File =====\n")
+	
+	cprint("The game crashed ! Please make a new GitHub issue at : " + strings.META_GITHUB_ISSUES_URL, "red")
+	cprint("And embed the file named '" + strings.META_CRASHFILE + "'", "red")
+	input("Press [ENTER] to exit the game.")
+	sys.exit()

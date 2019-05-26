@@ -9,7 +9,10 @@ META_GAMEVERSION = "0.3.0 [PLAYTEST BUILD]"
 META_GAMECREATOR = "Sandai"
 META_GAMETITLE = META_GAMENAME + " - version " + META_GAMEVERSION
 META_SAVEFILE = "SAVE.ini"
-META_WAITFRAME = 0.03 # Wait frame between each character appearance
+META_WAITFRAME = 0.02 # Wait frame between each character appearance
+META_CRASHFILE = "CRASHLOG.log"
+META_GITHUB_ISSUES_URL = "https://github.com/Sandaidev/TaleOfDelamar/issues"
+
 
 
 # These are a bunch of misc strings
