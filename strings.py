@@ -40,14 +40,14 @@ I_PLAYER_DIALOG_1 = {
     ],
 
     "EN": [
-        "[You] - ugh... where am I ? there's no light, only a lit green button...",
+        "[You] - ugh... where am I ? there's no light, only a green button...",
         "right, nothing ventured, nothing gained...",
         "*click*",
-        "[small voice, robotic] - Starting...",
+        "[quiet voice, robotic] - Starting...",
         "Welcome to AtlasOS !",
-        "Life support system... OK!",
+        "Life support system... Online!",
         "Opening visor...",
-        "(The shining light lights up your face, you are laying down on the red sand.)"
+        "(The bright light illuminates your face, you are laying down on the red sand.)"
     ]
 }
 
@@ -59,7 +59,7 @@ PLAYER_DIALOG_BASE1 = {
 
     "EN": [
         "(you go through what looks like a destroyed SAS...)"
-        "(cracks are present on the windows of the corridors of the abandoned base.)"
+        "(There are cracks on the windows of the abandoned bases corridors.)"
     ]
 }
 
