@@ -5,11 +5,17 @@
 
 # These are strings that do not directly relate to the story, they relate to the game/program itself
 META_GAMENAME = "Tale Of Delamar"
-META_GAMEVERSION = "0.2.0"
+META_GAMEVERSION = "0.3.0 [PLAYTEST BUILD]"
 META_GAMECREATOR = "Sandai"
 META_GAMETITLE = META_GAMENAME + " - version " + META_GAMEVERSION
-META_SAVEFILE = "SAVE.ini"
-META_WAITFRAME = 0.03 # Wait frame between each character appearance
+META_SAVEFILE = "save.dat"
+# The config writes here first, then we read the file and encode/compress it, finally we remove the temp file
+META_SAVEFILE_TEMP = "save.dat.temp"
+META_WAITFRAME = 0.02 # Wait frame between each character appearance
+META_CRASHFILE = "CRASHLOG.log"
+META_GITHUB_ISSUES_URL = "https://github.com/Sandaidev/TaleOfDelamar/issues"
+META_SAVEFILE_COMPLEVEL = 9 # Compression level of the obfuscated save file
+
 
 
 # These are a bunch of misc strings
@@ -34,14 +40,14 @@ I_PLAYER_DIALOG_1 = {
     ],
 
     "EN": [
-        "[You] - ugh... where am I ? there's no light, only a lit green button...",
+        "[You] - ugh... where am I ? there's no light, only a green button...",
         "right, nothing ventured, nothing gained...",
         "*click*",
-        "[small voice, robotic] - Starting...",
+        "[quiet voice, robotic] - Starting...",
         "Welcome to AtlasOS !",
-        "Life support system... OK!",
+        "Life support system... Online!",
         "Opening visor...",
-        "(The shining light lights up your face, you are laying down on the red sand.)"
+        "(The bright light illuminates your face, you are laying down on the red sand.)"
     ]
 }
 
@@ -53,7 +59,7 @@ PLAYER_DIALOG_BASE1 = {
 
     "EN": [
         "(you go through what looks like a destroyed SAS...)"
-        "(cracks are present on the windows of the corridors of the abandoned base.)"
+        "(There are cracks on the windows of the abandoned bases corridors.)"
     ]
 }
 
