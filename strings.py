@@ -8,10 +8,13 @@ META_GAMENAME = "Tale Of Delamar"
 META_GAMEVERSION = "0.3.0 [PLAYTEST BUILD]"
 META_GAMECREATOR = "Sandai"
 META_GAMETITLE = META_GAMENAME + " - version " + META_GAMEVERSION
-META_SAVEFILE = "SAVE.ini"
+META_SAVEFILE = "save.dat"
+# The config writes here first, then we read the file and encode/compress it, finally we remove the temp file
+META_SAVEFILE_TEMP = "save.dat.temp"
 META_WAITFRAME = 0.02 # Wait frame between each character appearance
 META_CRASHFILE = "CRASHLOG.log"
 META_GITHUB_ISSUES_URL = "https://github.com/Sandaidev/TaleOfDelamar/issues"
+META_SAVEFILE_COMPLEVEL = 9 # Compression level of the obfuscated save file
 
 
 

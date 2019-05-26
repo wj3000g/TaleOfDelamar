@@ -9,7 +9,9 @@ import time
 import ast
 import traceback
 import datetime
+import zlib
 init()
+
 
 config = configparser.ConfigParser()
 PLAYER_INVENTORY = None # Initialize the inventory for future use. (List)
@@ -67,6 +69,18 @@ def debug(text):
 
 	else:
 		pass
+
+def ret_save_data():
+	"""
+	Automatically de-obfuscate the obfuscated save file, and return its contents
+	"""
+
+	with open(strings.META_SAVEFILE, "rb") as obfuscated_save_file:
+		obfuscated_save_data = obfuscated_save_file.read()
+
+	deobfuscated_save_data = zlib.decompress(obfuscated_save_data).decode()
+	return deobfuscated_save_data
+
 
 def GAME_INIT():
 	print("loading...")
@@ -140,13 +154,13 @@ def GAME_INIT():
 		
 		elif user_choice == "2" and game_save_exists == True:
 			try:
-				config.read(strings.META_SAVEFILE)
+				config.read_string(ret_save_data()) # Read de-obfuscated save data
 				return
 		
 			except Exception as error: # The save file is unreadable or corrupted
 				cprint("ERROR! The save file '"+strings.META_SAVEFILE+"' is unreadable or corrupted !", "red")
-				cprint("Try to restore it to an earlier version or or start a new game,", "red")
-				cprint("DEBUG INFOS: " + str(error), "yellow")
+				cprint("Try to restore it to an earlier version or start a new game,", "red")
+				cprint("Error message: " + str(error), "yellow")
 				input()
 				continue
 		
@@ -160,8 +174,23 @@ def GAME_INIT():
 
 
 def save_game():
-	with open(strings.META_SAVEFILE, "w") as save_file:
-		config.write(save_file)
+
+	with open(strings.META_SAVEFILE_TEMP, "w") as temp_save_file_write:
+		config.write(temp_save_file_write)
+
+	with open(strings.META_SAVEFILE_TEMP, "r") as temp_save_file_read:
+		temp_savefile_contents = temp_save_file_read.read() # Read the un-obfuscated data
+
+	try:
+		os.remove(strings.META_SAVEFILE_TEMP)
+	
+	except:
+		pass # An error has occured while removing the temp save file, assuming it has been manually deleted
+	
+	obfuscated_save_data = zlib.compress(temp_savefile_contents.encode(), strings.META_SAVEFILE_COMPLEVEL)
+
+	with open(strings.META_SAVEFILE, "wb") as obfuscated_save_file:
+		obfuscated_save_file.write(obfuscated_save_data)
 
 
 def welcome():
@@ -192,6 +221,8 @@ def draw_map():
 	See why it's complicated ?
 
 	I plan to (try to) implement this in the v0.4.0, but not before.
+
+	EDIT: Implemented for v0.3.0
 	"""
 
 	print_centered("= Showing map =", "-")
@@ -280,7 +311,6 @@ def draw_map():
 	
 	print("") # New line
 
-
 def move_to_location(cardinal_point):
 	"""
 	cardinal point should be "NORTH", "SOUTH", "EAST" or "WEST"
@@ -334,8 +364,6 @@ def move_to_location(cardinal_point):
 		print(str(error))
 		traceback.print_exc()
 		return
-
-
 
 def look():
 	location_id = config["GAMEDATA"]["CURRENTZONE"]
@@ -493,6 +521,19 @@ except KeyboardInterrupt:
 	pass
 
 except Exception as game_error:
+
+	with open(strings.META_SAVEFILE_TEMP, "w") as temp_save_file_write:
+		config.write(temp_save_file_write)
+	
+	with open(strings.META_SAVEFILE_TEMP, "r") as temp_save_file_read:
+		temp_save_data = temp_save_file_read.read()
+	
+	try:
+		os.remove(strings.META_SAVEFILE_TEMP)
+	
+	except:
+		pass
+
 	with open(strings.META_CRASHFILE, "w") as crash_file:
 		today = datetime.date.today()
 		formatted_time = str(today.strftime('%d, %b %Y'))
@@ -502,6 +543,8 @@ except Exception as game_error:
 		crash_file.write("Base error : " + str(game_error) + "\n")
 		crash_file.write("===== Traceback =====\n")
 		crash_file.write(str(traceback.format_exc()) + "\n")
+		crash_file.write("===== Save data =====\n")
+		crash_file.write(temp_save_data + "\n")
 		crash_file.write("===== End of File =====\n")
 	
 	cprint("The game crashed ! Please make a new GitHub issue at : " + strings.META_GITHUB_ISSUES_URL, "red")

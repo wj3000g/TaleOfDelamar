@@ -5,3 +5,4 @@ __pycache__
 .vscode/settings.json
 SAVE.ini
 CRASHLOG.log
+save.dat
