@@ -18,8 +18,9 @@ PLAYER_INVENTORY = None # Initialize the inventory for future use. (List)
 __DEBUG_FLAG = True
 
 def print_centered(text, opt_fillchar=" "):
-	term_columns = os.get_terminal_size()[0]
+	term_columns = os.get_terminal_size()[0] 
 	print(text.center(term_columns, opt_fillchar))
+
 
 def tprint(text, sleep_frame=strings.META_WAITFRAME):
 	if os.name == "nt":
@@ -56,6 +57,7 @@ def tprint(text, sleep_frame=strings.META_WAITFRAME):
 def getstring(string_var):
 	return string_var[config.get("GAMEDATA", "LANGUAGE")]
 
+
 def clear_screen():
 	if os.name == 'nt': # If OS is Windows
 		os.system("cls")
@@ -63,12 +65,14 @@ def clear_screen():
 	else:
 		os.system("clear")
 
+
 def debug(text):
 	if __DEBUG_FLAG == True:
 		cprint("DEBUG: " + str(text), "yellow")
 
 	else:
 		pass
+
 
 def ret_save_data():
 	"""
@@ -198,9 +202,9 @@ def welcome():
 	Displays the welcome message at the start of the game
 	"""
 
-	print("Tale of Delamar - version " + strings.META_GAMEVERSION)
-	print("By " + strings.META_GAMECREATOR)
-	print(":: Type 'help' to get a list of all commands.")
+	print(colored("Tale of Delamar", "cyan") + " - version " + strings.META_GAMEVERSION)
+	print("By " + colored(strings.META_GAMECREATOR, "magenta"))
+	cprint(":: Type 'help' to get a list of all commands.", "green")
 
 	if __DEBUG_FLAG == True:
 		cprint("Debug flag enabled !", "yellow")
@@ -225,7 +229,7 @@ def draw_map():
 	EDIT: Implemented for v0.3.0
 	"""
 
-	print_centered("= Showing map =", "-")
+	print_centered(colored("= Showing map =", "magenta"), "-")
 
 	location_id = config.get("GAMEDATA", "CURRENTZONE")
 
@@ -311,6 +315,7 @@ def draw_map():
 	
 	print("") # New line
 
+
 def move_to_location(cardinal_point):
 	"""
 	cardinal point should be "NORTH", "SOUTH", "EAST" or "WEST"
@@ -365,11 +370,11 @@ def move_to_location(cardinal_point):
 		traceback.print_exc()
 		return
 
+
 def look():
 	location_id = config["GAMEDATA"]["CURRENTZONE"]
 	location_name = getstring(world.WORLD_ROOMS[location_id]["NAME"])
 	item_in_zone_id = world.WORLD_ROOMS[location_id]["HASITEM"]
-	item_in_zone_id_fulllist = world.WORLD_ITEMS[item_in_zone_id]
 	current_inventory = config["GAMEDATA"]["INVENTORY"]
 
 	north_id = world.WORLD_ROOMS[location_id]["NORTH"]
@@ -377,7 +382,7 @@ def look():
 	east_id = world.WORLD_ROOMS[location_id]["EAST"]
 	west_id = world.WORLD_ROOMS[location_id]["WEST"]
 
-	tprint("You are at " + location_name)
+	tprint("You are at " + colored(location_name, "cyan"))
 	tprint("-----------" + "-"*len(location_name)) # Automatically adjusts the size of the separator
 	tprint(getstring(world.WORLD_ROOMS[location_id]["DIALOGENTRY"]))
 	tprint("-----------" + "-"*len(location_name))
@@ -386,22 +391,22 @@ def look():
 	if north_id == None:
 		tprint("North: Nothing")
 	else:
-		tprint("North: " + getstring(world.WORLD_ROOMS[north_id]["NAME"]))
+		tprint("North: " + colored(getstring(world.WORLD_ROOMS[north_id]["NAME"]), "cyan"))
 	
 	if south_id == None:
 		tprint("South: Nothing")
 	else:
-		tprint("South: " + getstring(world.WORLD_ROOMS[south_id]["NAME"]))
+		tprint("South: " + colored(getstring(world.WORLD_ROOMS[south_id]["NAME"]), "cyan"))
 
 	if east_id == None:
 		tprint("East: Nothing")
 	else:
-		tprint("East: " + getstring(world.WORLD_ROOMS[east_id]["NAME"]))
+		tprint("East: " + colored(getstring(world.WORLD_ROOMS[east_id]["NAME"]), "cyan"))
 
 	if west_id == None:
 		tprint("West: Nothing")
 	else:
-		tprint("West: " + getstring(world.WORLD_ROOMS[west_id]["NAME"]))
+		tprint("West: " + colored(getstring(world.WORLD_ROOMS[west_id]["NAME"]), "cyan"))
 	
 	tprint("-----------" + "-"*len(location_name))
 
@@ -416,8 +421,8 @@ def look():
 		# The player doesn't have the item in the zone yet. We pick it up.
 		tprint("You picked up an item !")
 		
-		new_item_name = getstring(item_in_zone_id_fulllist["NAME"])
-		print("You got '" + new_item_name + "'")
+		new_item_name = getstring(world.WORLD_ITEMS[item_in_zone_id]["NAME"])
+		print("You got '" + colored(new_item_name, "cyan") + "' !")
 
 		current_inventory = str(config.get("GAMEDATA", "INVENTORY")) # Get str from memory
 		current_inventory = current_inventory.split(", ") # Converts str to list
@@ -434,7 +439,7 @@ def look():
 def whereami():
 	game_language = config.get("GAMEDATA", "LANGUAGE")
 	current_location_name = world.WORLD_ROOMS[config["GAMEDATA"]["CURRENTZONE"]]["NAME"][game_language]
-	tprint("You are at : " + current_location_name)
+	tprint("You are at : " + colored(current_location_name, "cyan"))
 
 
 def print_inventory():
@@ -456,6 +461,23 @@ def print_inventory():
 		item_name = getstring(world.WORLD_ITEMS[item_id]["NAME"])
 		print(" - " + item_name)
 	tprint("------------------")
+
+
+def spawn_screen_transition():
+	if os.name == "nt":
+		os.system("color 80")
+		time.sleep(0.3)
+		os.system("cls")
+		os.system("color 70")
+		time.sleep(0.3)
+		os.system("color 80")
+		time.sleep(0.3)
+		os.system("color 0F")
+		time.sleep(0.3)
+		os.system("cls")
+	
+	else:
+		clear_screen()
 
 
 def game_loop():
@@ -545,7 +567,7 @@ def game_loop():
 
 try:
 	GAME_INIT()
-	clear_screen()
+	spawn_screen_transition()
 	welcome()
 	game_loop()
 
@@ -571,6 +593,7 @@ except Exception as game_error:
 		formatted_time = str(today.strftime('%d, %b %Y'))
 
 		crash_file.write("===== Tale of Delamar =====\n")
+		crash_file.write("Game version : " + strings.META_GAMEVERSION + "\n")
 		crash_file.write("Crash report : " + formatted_time + "\n")
 		crash_file.write("Base error : " + str(game_error) + "\n")
 		crash_file.write("===== Traceback =====\n")
