@@ -462,6 +462,38 @@ def game_loop():
 	while True:
 		user_choice = input("> ").lower()
 
+		if __DEBUG_FLAG == True:
+			if user_choice == "debug":
+				cprint("==- Debug menu -==", "yellow")
+				cprint("1/ Add an item to inventory (by ID)", "yellow")
+				cprint("2/ Travel to a specific location (by ID)", "yellow")
+
+				debug_input = input("debug-menu/")
+
+				if debug_input == "1":
+
+					current_inventory = str(config.get("GAMEDATA", "INVENTORY")) # Get str from memory
+					current_inventory = current_inventory.split(", ") # Converts str to list
+					current_inventory.append(new_item_id) # Add item to list
+					current_inventory = ', '.join(current_inventory) # Convert list to str
+
+					# Since config.set() only accepts str, we cast the list to an str just for this,
+					# We use ast.literal_eval() to cast it back to a list
+					config.set("GAMEDATA", "INVENTORY", str(current_inventory))
+					print("Added item to inventory !")					
+					continue
+
+				elif debug_input == "2":
+					zone_to_travel = input("Zone to travel (ID, in caps) : ")
+					config.set("GAMEDATA", "CURRENTZONE", zone_to_travel)
+					continue
+				
+				else:
+					continue
+
+		else:
+			pass
+
 		if user_choice == "help":
 			print(getstring(strings._T_HELP_MESSAGE))
 			continue
