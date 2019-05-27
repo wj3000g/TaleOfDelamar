@@ -114,7 +114,7 @@ info("** BUILD STARTING")
 
 # Actually building the script
 info("** RUNNING CX_FREEZE...")
-os.system("python cxfreeze.py -c -OO -s --include-modules=" + config["DATA"]["MODULES_TO_INCLUDE"] + " " + config["DATA"]["SCRIPT_NAME"])
+os.system("python cxfreeze.py -c -OO -s --target-name=TaleOfDelamar.exe --include-modules=" + config["DATA"]["MODULES_TO_INCLUDE"] + " " + config["DATA"]["SCRIPT_NAME"])
 
 
 # Checking if we embed an additionnal folder...
