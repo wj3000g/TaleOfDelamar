@@ -18,7 +18,7 @@ META_SAVEFILE_COMPLEVEL = 9 # Compression level of the obfuscated save file
 
 
 # These are a bunch of misc strings
-_HELP_COMMANDS = "help quit whereami north/n south/s east/e west/w look inventory map"
+_HELP_COMMANDS = "help quit whereami north/n south/s east/e west/w look inventory map save"
 _T_HELP_MESSAGE = {
     "EN": "Available commands : " + _HELP_COMMANDS,
     "FR": "Commandes disponibles: " + _HELP_COMMANDS
