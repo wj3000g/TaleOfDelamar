@@ -276,3 +276,9 @@ ITEM_I_NAME_PASSKEY_LEVEL1 = {
     "FR": "Carte d'accès (Niveau 1)",
     "EN": "Passkey (Level 1)"
 }
+
+
+I_ACHIEVEMENT_TESTACHIEVEMENT = {
+    "FR": "Test du succès",
+    "EN": "Test of the achievement"
+}

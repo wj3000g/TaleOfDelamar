@@ -67,6 +67,14 @@ WORLD_ITEMS = {
 }
 
 
+WORLD_ACHIEVEMENTS = {
+
+    "TESTACHIEVEMENT": {
+        "NAME": strings.I_ACHIEVEMENT_TESTACHIEVEMENT
+    }
+
+}
+
 
 WORLD_ROOMS = {
 

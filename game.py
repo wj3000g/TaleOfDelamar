@@ -17,6 +17,11 @@ config = configparser.ConfigParser()
 PLAYER_INVENTORY = None # Initialize the inventory for future use. (List)
 __DEBUG_FLAG = True
 
+
+class GameCrash(Exception): # Exception for manually initiated crashes
+    pass
+
+
 def print_centered(text, opt_fillchar=" "):
 	term_columns = os.get_terminal_size()[0] 
 	print(text.center(term_columns, opt_fillchar))
@@ -85,6 +90,32 @@ def ret_save_data():
 	deobfuscated_save_data = zlib.decompress(obfuscated_save_data).decode()
 	return deobfuscated_save_data
 
+def add_achievement(achievement_id):
+	"""
+	Adds the achievement ID to the game's save
+	"""
+
+	current_unlocked_achievements = str(config.get("GAMEDATA", "ACHIEVEMENTS")) # Get str from memory
+	current_unlocked_achievements = current_unlocked_achievements.split(", ") # Converts str to list
+
+	# We check if the player already have the achievement
+	for achievement in current_unlocked_achievements:
+		if achievement_id == achievement: # If the player already have the achievement...
+			return
+	
+	# If we're here, this means that the player doesn't have the achievement yet, so we append it to the save.
+
+	current_unlocked_achievements.append(achievement_id) # Add item to list
+	current_unlocked_achievements = ', '.join(current_unlocked_achievements) # Convert list to str
+
+	achievement_name = getstring(world.WORLD_ACHIEVEMENTS[achievement_id]["NAME"])
+	cprint("You unlocked the achievement '" + achievement_name + "' !", "green")
+
+
+def list_achievements():
+	# TODO: this.
+	pass
+
 
 def GAME_INIT():
 	print("loading...")
@@ -146,7 +177,8 @@ def GAME_INIT():
 				config["GAMEDATA"] = {
 				"CURRENTZONE": "CRASHSITE", # The starting point of the game
 				"INVENTORY": "IDENTITYCARD",
-				"LANGUAGE": game_language
+				"LANGUAGE": game_language,
+				"ACHIEVEMENTS": "",
 				}
 
 				save_game()
@@ -424,6 +456,16 @@ def look():
 		new_item_name = getstring(world.WORLD_ITEMS[item_in_zone_id]["NAME"])
 		print("You got '" + colored(new_item_name, "cyan") + "' !")
 
+		try: 	# Workaround, not all "UNLOCKS" metadata has been written, so if we catch an error,
+				# this means that there is no achievement to unlock.
+			achievement_in_zone = world.WORLD_ITEMS[item_in_zone_id]["UNLOCKS"]
+			
+			if achievement_in_zone != None: # If there is an achievement
+				add_achievement(achievement_in_zone)
+		
+		except:
+			pass
+
 		current_inventory = str(config.get("GAMEDATA", "INVENTORY")) # Get str from memory
 		current_inventory = current_inventory.split(", ") # Converts str to list
 		current_inventory.append(item_in_zone_id) # Add item to list
@@ -489,11 +531,13 @@ def game_loop():
 				cprint("==- Debug menu -==", "yellow")
 				cprint("1/ Add an item to inventory (by ID)", "yellow")
 				cprint("2/ Travel to a specific location (by ID)", "yellow")
+				cprint("3/ Crash the game", "magenta")
 
 				debug_input = input("debug-menu/")
 
 				if debug_input == "1":
 
+					new_item_id = input("Item to add (ID, in caps) : ")
 					current_inventory = str(config.get("GAMEDATA", "INVENTORY")) # Get str from memory
 					current_inventory = current_inventory.split(", ") # Converts str to list
 					current_inventory.append(new_item_id) # Add item to list
@@ -509,6 +553,11 @@ def game_loop():
 					zone_to_travel = input("Zone to travel (ID, in caps) : ")
 					config.set("GAMEDATA", "CURRENTZONE", zone_to_travel)
 					continue
+				
+				elif debug_input == "3":
+					# This command is useful to get the current stacktrace, and to get the un-obfuscated save file
+					cprint("Initiating game crash...", "yellow")
+					raise GameCrash("Manually initiated game crash.")
 				
 				else:
 					continue
