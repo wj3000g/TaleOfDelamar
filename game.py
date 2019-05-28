@@ -558,6 +558,12 @@ def game_loop():
 			draw_map()
 			continue
 		
+		elif user_choice == "save":
+			print("Saving game...")
+			save_game()
+			cprint("Game saved !", "green")
+			continue
+		
 		elif user_choice == "": # If the user enters a new line, do nothing
 			continue
 		
@@ -572,8 +578,14 @@ try:
 	game_loop()
 
 except KeyboardInterrupt:
-	pass
-
+	# We save the game, then quit it.
+	cprint("You pressed CTRL+C !", "yellow") 
+	print("Saving game...")
+	save_game()
+	cprint("Game saved.", "green")
+	input("Press [ENTER] to quit the game.")
+	sys.exit()
+	       
 except Exception as game_error:
 
 	with open(strings.META_SAVEFILE_TEMP, "w") as temp_save_file_write:
@@ -594,11 +606,11 @@ except Exception as game_error:
 
 		crash_file.write("===== Tale of Delamar =====\n")
 		crash_file.write("Game version : " + strings.META_GAMEVERSION + "\n")
-		crash_file.write("Crash report : " + formatted_time + "\n")
+		crash_file.write("Date : " + formatted_time + "\n")
 		crash_file.write("Base error : " + str(game_error) + "\n")
 		crash_file.write("===== Traceback =====\n")
 		crash_file.write(str(traceback.format_exc()) + "\n")
-		crash_file.write("===== Save data =====\n")
+		crash_file.write("===== Memory save data =====\n")
 		crash_file.write(temp_save_data + "\n")
 		crash_file.write("===== End of File =====\n")
 	
